@@ -1,0 +1,1420 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>CodeWaveTech Website</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: corporate multipage site — utility bar + pill nav, split heroes with product visuals, left-aligned section headers with actions, structured grids, dark footer. Pages switch by URL hash. */
+:root{
+  --bg:#F4F6F7; --surface:#FFFFFF; --ink:#0E1A24; --ink-2:#51606A; --line:#E0E6E9; --line-2:#EDF1F2;
+  --glow:#9FDCCB; --glow-2:#F6CFA0; --accent:#127A6A; --accent-2:#0E6457; --accent-soft:#E2F3EE; --danger:#D9363E; --warn-soft:#FDEDEC;
+  --btn:#0E1A24; --btn-fg:#FFFFFF; --btn-knob:#2E3D48;
+  --deep:#0B1820; --deep-fg:#EAF1F2; --deep-2:#98A9B1; --deep-line:#1F313B;
+  --display:"Hanken Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --body:"Hanken Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --r:20px; --r-sm:14px;
+  --shadow:0 1px 2px rgba(14,26,36,.04),0 8px 24px rgba(14,26,36,.06);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B1317; --surface:#121C22; --ink:#EEF3F4; --ink-2:#A2B0B6; --line:#24323A; --line-2:#1A262D;
+  --glow:#1E5A50; --glow-2:#5A3E22; --accent:#5CCFB8; --accent-2:#7FDCC8; --accent-soft:#143832; --danger:#FF6B6F; --warn-soft:#3A1C1E;
+  --btn:#EEF3F4; --btn-fg:#0B1317; --btn-knob:#C8D3D7;
+  --deep:#070E12; --deep-fg:#EAF1F2; --deep-2:#8FA0A8; --deep-line:#1A2830; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B1317; --surface:#121C22; --ink:#EEF3F4; --ink-2:#A2B0B6; --line:#24323A; --line-2:#1A262D;
+  --glow:#1E5A50; --glow-2:#5A3E22; --accent:#5CCFB8; --accent-2:#7FDCC8; --accent-soft:#143832; --danger:#FF6B6F; --warn-soft:#3A1C1E;
+  --btn:#EEF3F4; --btn-fg:#0B1317; --btn-knob:#C8D3D7;
+  --deep:#070E12; --deep-fg:#EAF1F2; --deep-2:#8FA0A8; --deep-line:#1A2830; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--display);letter-spacing:-.025em;line-height:1.1;margin:0;text-wrap:balance;font-weight:700}
+p{margin:0}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+section{padding-block:clamp(56px,7vw,96px)}
+.tight{padding-top:0}
+.h2{font-size:clamp(30px,3.4vw,44px)}
+.lead{color:var(--ink-2);font-size:clamp(16px,1.3vw,18px);max-width:620px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.eyebrow::before{content:"";width:18px;height:2px;background:currentColor;border-radius:2px}
+.eyebrow.plain::before{display:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:14px;background:var(--btn);color:var(--btn-fg);font-weight:700;font-size:15px;border:0;border-radius:999px;padding:6px 6px 6px 22px;text-decoration:none;cursor:pointer;font-family:inherit;white-space:nowrap}
+.btn .knob{width:38px;height:38px;border-radius:50%;background:var(--btn-knob);display:grid;place-items:center;transition:transform .25s}
+.btn .knob svg{stroke:var(--btn-fg)}
+.btn:hover .knob{transform:translateX(3px)}
+.btn.accent{background:var(--accent);color:#fff}.btn.accent .knob{background:var(--accent-2)}.btn.accent .knob svg{stroke:#fff}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:999px;padding:12px 20px;font-weight:700;font-size:15px;text-decoration:none;background:var(--surface);color:var(--ink);cursor:pointer;font-family:inherit;white-space:nowrap}
+.btn-ghost:hover{border-color:var(--ink)}
+.link{font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;color:var(--accent)}
+.link:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* Switch */
+.switch{position:fixed;z-index:70;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;background:var(--deep);border-radius:999px;padding:4px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.switch a{color:var(--deep-fg);font:600 13px var(--body);padding:9px 16px;border-radius:999px;text-decoration:none;opacity:.7;white-space:nowrap}
+.switch a[aria-current="true"]{background:var(--deep-fg);color:var(--deep);opacity:1}
+
+/* Utility bar + Nav */
+.topbar{background:var(--deep);color:var(--deep-2);font-size:13px}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:9px;flex-wrap:wrap}
+.topbar span{display:inline-flex;gap:18px;flex-wrap:wrap}
+.topbar b{color:var(--deep-fg);font-weight:600}
+.topbar a{color:var(--deep-fg);font-weight:600;text-decoration:none}
+.topbar a:hover{text-decoration:underline}
+.nav-shell{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px;position:relative}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:21px;letter-spacing:-.03em;text-decoration:none}
+.logo svg{flex:none}
+.links{display:flex;gap:2px;list-style:none;margin:0;padding:0}
+.links a,.links button{display:flex;align-items:center;gap:4px;padding:9px 13px;border-radius:10px;text-decoration:none;font-size:15px;font-weight:600;color:var(--ink-2);background:none;border:0;cursor:pointer;font-family:inherit;position:relative}
+.links a:hover,.links button:hover,.links button[aria-expanded="true"]{color:var(--ink);background:var(--surface)}
+.links .on{color:var(--ink)}
+.links .on::after{content:"";position:absolute;left:13px;right:13px;bottom:-13px;height:2px;background:var(--accent)}
+.nav-cta{display:flex;gap:10px;align-items:center}
+.nav .btn{padding:5px 5px 5px 18px;font-size:14px}
+.nav .btn .knob{width:32px;height:32px}
+.mega{position:absolute;left:0;right:0;top:calc(100% + 1px);background:var(--surface);border:1px solid var(--line);border-radius:0 0 var(--r) var(--r);box-shadow:0 30px 60px rgba(14,26,36,.14);padding:28px;display:grid;grid-template-columns:2fr 1fr 1.1fr;gap:28px}
+.mega h4{margin:0 0 12px;font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.mega ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.mega .core ul{grid-template-columns:1fr 1fr}
+.mega a{display:flex;gap:12px;padding:10px;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px}
+.mega a .mi{flex:none;width:36px;height:36px;border-radius:10px;background:var(--bg);display:grid;place-items:center}
+.mega a .mi svg{stroke:var(--accent)}
+.mega a small{display:block;font-weight:400;color:var(--ink-2);font-size:13px;line-height:1.4}
+.mega a:hover{background:var(--bg)}
+.mega .gov{background:var(--deep);color:var(--deep-fg);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:10px}
+.mega .gov p{color:var(--deep-2);font-size:14px}
+.mega .gov .link{color:var(--glow)}
+.burger{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surface);cursor:pointer;color:var(--ink)}
+.mobile-menu{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;padding:10px;max-height:70vh;overflow:auto}
+.mobile-menu a{display:block;padding:12px 14px;font-weight:700;text-decoration:none;border-radius:12px}
+.mobile-menu a.sub{padding:8px 14px 8px 28px;font-weight:500;color:var(--ink-2);font-size:15px}
+.mobile-menu a:hover{background:var(--bg)}
+
+/* Home hero */
+.hero{position:relative;overflow:hidden;padding-block:clamp(48px,6vw,84px) clamp(40px,5vw,64px)}
+.hero::before{content:"";position:absolute;right:-15%;top:-10%;width:900px;max-width:120%;aspect-ratio:1;background:radial-gradient(closest-side,color-mix(in srgb,var(--glow) 80%,transparent),color-mix(in srgb,var(--glow-2) 35%,transparent) 55%,transparent);z-index:-1;opacity:.8}
+.grid-bg{position:absolute;inset:0;z-index:-2;background-image:linear-gradient(var(--line-2) 1px,transparent 1px),linear-gradient(90deg,var(--line-2) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(90deg,#000 0%,transparent 75%)}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
+.hero-grid>*{min-width:0}
+.pill-badge{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 14px 5px 5px;font-size:13px;font-weight:600}
+.pill-badge em{font-style:normal;background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700}
+.hero h1{font-size:clamp(40px,5vw,64px);margin:22px 0 18px;letter-spacing:-.035em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{font-size:clamp(17px,1.4vw,19px)}
+.cta-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:32px}
+.assure{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:28px;font-size:14px;font-weight:600;color:var(--ink-2)}
+.assure span{display:inline-flex;align-items:center;gap:8px}
+.assure svg{stroke:var(--accent)}
+
+/* Product mockup */
+.mock{position:relative;padding:20px 0 36px 28px}
+.win{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 70px rgba(14,26,36,.16);overflow:hidden}
+.win-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--bg)}
+.win-bar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.win-bar span{margin-left:10px;flex:1;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font:500 11px var(--mono);color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.win-body{display:grid;grid-template-columns:44px 1fr}
+.win-side{border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:12px;padding:14px 0}
+.win-side i{width:20px;height:20px;border-radius:6px;background:var(--line-2)}
+.win-side i.on{background:var(--accent)}
+.win-main{padding:16px;display:grid;gap:12px;min-width:0}
+.win-main h5{margin:0;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+.win-main h5 span{font:500 11px var(--mono);color:var(--ink-2)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpis div{border:1px solid var(--line);border-radius:12px;padding:10px;min-width:0}
+.kpis small{display:block;font-size:11px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpis b{font-size:17px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.kpis em{display:block;font-style:normal;font-size:11px;color:var(--accent);font-weight:700}
+.bars{display:flex;align-items:flex-end;gap:7px;height:96px;padding:10px 10px 0;border:1px solid var(--line);border-radius:12px;background:linear-gradient(var(--line-2) 1px,transparent 1px) 0 0/100% 24px}
+.bars i{flex:1;border-radius:5px 5px 0 0;background:color-mix(in srgb,var(--accent) 35%,var(--surface));transform-origin:bottom;animation:grow .9s cubic-bezier(.2,.8,.2,1) both}
+.bars i:last-child{background:var(--accent)}
+@keyframes grow{from{transform:scaleY(.15)}}
+.rows{display:grid;gap:6px}
+.rows div{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;padding:7px 10px;border-radius:10px;background:var(--bg)}
+.rows b{font-variant-numeric:tabular-nums}
+.st{font:500 10px var(--mono);padding:2px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.phone-m{position:absolute;left:0;bottom:0;width:150px;background:var(--deep);border-radius:24px;padding:8px;box-shadow:0 24px 50px rgba(14,26,36,.3)}
+.phone-m .scr{background:var(--surface);border-radius:18px;padding:12px 10px;display:grid;gap:8px;min-height:190px}
+.phone-m .scr small{font:500 10px var(--mono);color:var(--ink-2);text-align:center}
+.notif{background:var(--bg);border-radius:12px;padding:8px;font-size:11px;line-height:1.35}
+.notif b{display:block;font-size:11px}
+.notif.wa{border-left:3px solid #25A35A}
+.float{position:absolute;right:-6px;top:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 14px;box-shadow:var(--shadow);display:flex;gap:10px;align-items:center;font-size:13px;font-weight:700}
+.float i{width:28px;height:28px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center}
+.float i svg{stroke:var(--accent)}
+.float small{display:block;font:500 11px var(--mono);color:var(--ink-2)}
+
+/* Stats bar */
+.statbar{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);margin-top:clamp(40px,5vw,64px)}
+.statbar div{padding:24px 26px;border-left:1px solid var(--line);display:grid;gap:2px}
+.statbar div:first-child{border-left:0}
+.statbar b{font-size:clamp(28px,3vw,38px);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.statbar span{color:var(--ink-2);font-size:14px;font-weight:500}
+
+/* Tech strip */
+.stack{padding-block:40px;border-block:1px solid var(--line);background:var(--surface)}
+.stack .wrap{display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:center}
+.stack p{font-weight:700;font-size:14px;color:var(--ink-2)}
+.marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);min-width:0}
+.track{display:flex;gap:44px;width:max-content;animation:scroll 34s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.track span{font:700 20px var(--display);letter-spacing:-.02em;color:var(--ink-2);white-space:nowrap}
+
+/* Section header */
+.shead{display:grid;grid-template-columns:1.15fr 1fr;gap:24px 48px;align-items:end;margin-bottom:40px}
+.shead h2{margin-top:12px}
+.shead .r{display:grid;gap:16px;justify-items:start}
+.shead.c{grid-template-columns:1fr;text-align:center;justify-items:center}
+.shead.c .r{justify-items:center}
+
+/* Entry cards */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--surface);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:12px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.card .tag{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.card h3{font-size:23px}
+.card p{color:var(--ink-2)}
+.card .cta{margin-top:6px}
+.illus{margin-top:auto;width:100%;aspect-ratio:1/0.72;border-radius:var(--r-sm);background:linear-gradient(180deg,var(--bg) 30%,color-mix(in srgb,var(--glow) 45%,var(--bg)));position:relative;overflow:hidden;border:1px solid var(--line)}
+.prob{position:absolute;background:var(--surface);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;box-shadow:0 6px 18px rgba(14,26,36,.08);white-space:nowrap;transition:transform .4s}
+.prob::after{content:"×";position:absolute;right:-7px;top:-7px;width:20px;height:20px;border-radius:50%;background:var(--danger);color:#fff;font-size:13px;display:grid;place-items:center;line-height:1}
+.card:hover .prob{transform:rotate(0)!important}
+.mini-steps{position:absolute;inset:14px;display:flex;flex-direction:column;gap:8px}
+.mini-steps div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 10px;font-weight:700;font-size:13px;display:flex;gap:10px;align-items:center}
+.mini-steps small{display:block;font-weight:400;color:var(--ink-2);font-size:11px}
+.mini-steps b{flex:none;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:11px}
+.chatbox{position:absolute;inset:16px;display:flex;flex-direction:column;gap:8px;justify-content:center}
+.bub{max-width:84%;padding:8px 12px;border-radius:14px;font-size:12.5px}
+.bub.me{align-self:flex-end;background:var(--ink);color:var(--bg);border-bottom-right-radius:4px}
+.bub.us{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px}
+.typing{display:flex;gap:4px;padding:10px 12px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--ink-2);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+
+/* Why us */
+.why{display:grid;grid-template-columns:.9fr 1.3fr;gap:48px;align-items:start}
+.why .sticky{position:sticky;top:110px;display:grid;gap:16px;justify-items:start}
+.cmp{display:grid;gap:14px}
+.cmp article{display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.cmp article>div{padding:22px 24px;display:grid;gap:6px;align-content:start}
+.cmp .bad{background:color-mix(in srgb,var(--warn-soft) 60%,var(--surface));border-right:1px solid var(--line)}
+.cmp small{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.cmp .bad small{color:var(--danger)}
+.cmp .good small{color:var(--accent)}
+.cmp h4{font-size:19px}
+.cmp p{color:var(--ink-2);font-size:15px}
+
+/* Services */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.svc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:10px;text-decoration:none;transition:transform .25s,box-shadow .25s,border-color .25s;position:relative;box-shadow:var(--shadow)}
+.svc:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(14,26,36,.1);border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
+.svc .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.svc .ic{width:46px;height:46px;border-radius:12px;background:var(--accent-soft);display:grid;place-items:center}
+.svc .ic svg{stroke:var(--accent)}
+.svc .go{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:all .25s}
+.svc .go svg{stroke:var(--ink)}
+.svc:hover .go{background:var(--ink);border-color:var(--ink)}
+.svc:hover .go svg{stroke:var(--bg)}
+.svc h3{font-size:21px}
+.svc p{color:var(--ink-2);font-size:15px}
+.svc .meta{margin-top:auto;padding-top:14px;border-top:1px solid var(--line-2);font:500 12px var(--mono);color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px;width:max-content;max-width:100%}
+.tabs button{border:0;background:transparent;color:var(--ink-2);font:700 14px var(--body);padding:9px 16px;border-radius:999px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+/* Page hero */
+.phero{position:relative;overflow:hidden;padding-block:clamp(40px,5vw,72px);border-bottom:1px solid var(--line);margin-bottom:clamp(48px,6vw,80px);background:linear-gradient(180deg,var(--surface),var(--bg))}
+.phero::before{content:"";position:absolute;right:-10%;top:-40%;width:700px;max-width:100%;aspect-ratio:1;background:radial-gradient(closest-side,color-mix(in srgb,var(--glow) 60%,transparent),transparent);z-index:0;opacity:.7}
+.phero .wrap{position:relative;display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:end}
+.phero .wrap>*{min-width:0}
+.crumbs{display:flex;gap:8px;flex-wrap:wrap;font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.crumbs a{text-decoration:none}.crumbs a:hover{color:var(--ink)}
+.phero h1{font-size:clamp(34px,4.4vw,56px);margin:16px 0 14px;letter-spacing:-.03em}
+.phero .ic-big{width:56px;height:56px;border-radius:16px;background:var(--accent-soft);display:grid;place-items:center;margin-top:20px}
+.phero .ic-big svg{stroke:var(--accent)}
+.phero .cta-row{margin-top:24px}
+.facts{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);display:grid}
+.facts div{display:flex;justify-content:space-between;gap:16px;padding:16px 20px;border-top:1px solid var(--line-2);font-size:15px}
+.facts div:first-child{border-top:0}
+.facts span{color:var(--ink-2)}
+.facts b{text-align:right}
+
+/* Service detail */
+.detail{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:start}
+.detail>*{min-width:0}
+.offer{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.offer div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:16px 18px;display:flex;gap:12px;align-items:flex-start;font-weight:600;font-size:15px}
+.offer div svg{flex:none;margin-top:2px;stroke:var(--accent)}
+.side{position:sticky;top:110px;display:grid;gap:14px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:grid;gap:12px;box-shadow:var(--shadow)}
+.box h4{font-size:19px}
+.box p{color:var(--ink-2)}
+.box.accent{background:var(--deep);color:var(--deep-fg);border-color:var(--deep)}
+.box.accent p{color:var(--deep-2)}
+.box.accent .btn{background:var(--deep-fg);color:var(--deep)}
+.box.accent .btn .knob{background:var(--deep-2)}
+.box.accent .btn .knob svg{stroke:var(--deep)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags span{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 10px;font:500 12px var(--mono)}
+.sub-h{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin:32px 0 14px}
+.sub-h:first-child{margin-top:0}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px}
+.pager a{text-decoration:none;display:grid;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px 24px}
+.pager a:hover{border-color:var(--ink)}
+.pager a small{font:500 12px var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
+.pager a b{font-size:19px}
+.pager a:last-child{text-align:right}
+
+/* Process */
+.process{display:grid;grid-template-columns:1fr 1.1fr;gap:20px;align-items:stretch}
+.steps{display:flex;flex-direction:column;gap:10px}
+.step{display:flex;gap:16px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:18px 20px;cursor:pointer;font-family:inherit;color:inherit;transition:border-color .2s}
+.step b{flex:none;width:40px;height:40px;border-radius:12px;background:var(--bg);display:grid;place-items:center;font:500 14px var(--mono);color:var(--ink-2)}
+.step h4{font-size:18px}
+.step p{color:var(--ink-2);font-size:14px;margin-top:2px}
+.step[aria-selected="true"]{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.step[aria-selected="true"] b{background:var(--accent);color:#fff}
+.stage{background:var(--deep);color:var(--deep-fg);border-radius:var(--r);padding:32px;display:flex;flex-direction:column;gap:16px;min-height:360px;position:relative;overflow:hidden}
+.stage::after{content:"";position:absolute;right:-30%;bottom:-50%;width:420px;aspect-ratio:1;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 40%,transparent),transparent);pointer-events:none}
+.stage .num{font:500 12px var(--mono);color:var(--glow);letter-spacing:.08em}
+.stage h3{font-size:32px}
+.stage p{color:var(--deep-2)}
+.stage ul{margin:0;padding:0;list-style:none;display:grid;gap:10px;position:relative;z-index:1}
+.stage li{display:flex;gap:10px;align-items:center;font-weight:600}
+.stage li svg{stroke:var(--glow);flex:none}
+.stage .dur{margin-top:auto;align-self:flex-start;border:1px solid var(--deep-line);border-radius:999px;padding:8px 14px;font:500 12px var(--mono);position:relative;z-index:1}
+.models{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.model{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow)}
+.model.hl{background:var(--deep);color:var(--deep-fg);border-color:var(--deep)}
+.model.hl p,.model.hl li{color:var(--deep-2)}
+.model.hl .eyebrow{color:var(--glow)}
+.model h3{font-size:24px}
+.model p,.model li{color:var(--ink-2)}
+.model ul{margin:0;padding-left:18px;display:grid;gap:6px}
+
+/* Government band */
+.gov-band{background:var(--deep);color:var(--deep-fg);border-radius:28px;padding:clamp(32px,5vw,60px);display:grid;grid-template-columns:1.1fr 1fr;gap:48px;position:relative;overflow:hidden}
+.gov-band::after{content:"";position:absolute;right:-20%;bottom:-60%;width:700px;aspect-ratio:1;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 40%,transparent),transparent);pointer-events:none}
+.gov-band>*{min-width:0;position:relative;z-index:1}
+.gov-band .eyebrow{color:var(--glow)}
+.gov-band h2{font-size:clamp(28px,3.4vw,42px);margin:14px 0 16px}
+.gov-band p{color:var(--deep-2)}
+.gov-band .btn{background:var(--deep-fg);color:var(--deep);margin-top:28px}
+.gov-band .btn .knob{background:var(--deep-2)}.gov-band .btn .knob svg{stroke:var(--deep)}
+.comp{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.comp span{border:1px solid var(--deep-line);border-radius:10px;padding:9px 14px;font-size:14px;font-weight:600;color:var(--deep-fg)}
+.comp span.k{background:color-mix(in srgb,var(--accent) 22%,transparent);border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.gov-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px}
+.gov-stats div{border-top:1px solid var(--deep-line);padding-top:12px}
+.gov-stats b{display:block;font-size:28px}
+.gov-stats span{color:var(--deep-2);font-size:13px}
+.gov-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.gov-groups .box ul{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+.gov-groups .box li{display:flex;gap:10px;font-size:15px}
+.gov-groups .box li svg{flex:none;stroke:var(--accent);margin-top:3px}
+.gov-groups .box.span{grid-column:1/-1}
+.gov-groups .box.span ul{grid-template-columns:1fr 1fr;column-gap:24px}
+.gov-groups .gh{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line-2)}
+.gov-groups .gh span{font:500 12px var(--mono);color:var(--ink-2)}
+
+/* Industries */
+.ind{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ind a{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:16px 18px;text-decoration:none;transition:border-color .2s}
+.ind a:hover{border-color:var(--accent)}
+.ind .ii{flex:none;width:42px;height:42px;border-radius:12px;background:var(--bg);display:grid;place-items:center}
+.ind .ii svg{stroke:var(--ink)}
+.ind b{display:block;font-size:16px}
+.ind small{color:var(--ink-2);font-size:13px}
+.ind-full{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.indcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow)}
+.indcard .ii{width:46px;height:46px;border-radius:12px;background:var(--accent-soft);display:grid;place-items:center}
+.indcard .ii svg{stroke:var(--accent)}
+.indcard h3{font-size:21px}
+.indcard p{color:var(--ink-2)}
+.indcard ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:15px}
+.indcard li{display:flex;gap:8px}
+.indcard li svg{flex:none;stroke:var(--accent);margin-top:4px}
+.indcard .tags{margin-top:auto;padding-top:14px;border-top:1px solid var(--line-2)}
+.indcard .tags a{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:13px;font-weight:700;text-decoration:none}
+.indcard .tags a:hover{border-color:var(--accent)}
+
+/* Testimonials */
+.q-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 40px)/3);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.q-track::-webkit-scrollbar{display:none}
+.q{scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:18px;box-shadow:var(--shadow)}
+.q .stars{color:#E8A33D;letter-spacing:2px}
+.q blockquote{margin:0;font-size:17px;line-height:1.55}
+.q .who{display:flex;gap:12px;align-items:center;margin-top:auto;padding-top:16px;border-top:1px solid var(--line-2)}
+.q .av{width:42px;height:42px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;font-weight:700;color:var(--accent)}
+.q .who small{display:block;color:var(--ink-2);font-size:13px}
+.q .tag{font:500 10px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2);border:1px dashed var(--line);border-radius:6px;padding:3px 7px;align-self:flex-start}
+.q-nav{display:flex;gap:8px;align-items:center}
+.q-nav button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);cursor:pointer;color:var(--ink);font-size:18px}
+.q-nav button:hover{border-color:var(--ink)}
+
+/* Consultation band */
+.audit{background:linear-gradient(135deg,#127A6A 0%,#0B3F39 100%);color:#fff;border-radius:28px;padding:clamp(32px,5vw,56px);display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;position:relative;overflow:hidden}
+.audit>*{min-width:0;position:relative}
+.audit h2{font-size:clamp(28px,3.4vw,42px)}
+.audit p{opacity:.85;margin-top:14px;max-width:520px}
+.audit ul{list-style:none;padding:24px;margin:0;display:grid;gap:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px}
+.audit li{display:flex;gap:12px;align-items:center;font-weight:600}
+.audit li::before{content:"✓";flex:none;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;font-size:12px}
+.audit .btn{background:#fff;color:#0E1A24;margin-top:28px}
+.audit .btn .knob{background:#DCE7E5}.audit .btn .knob svg{stroke:#0E1A24}
+
+/* FAQ */
+.faqsplit{display:grid;grid-template-columns:.8fr 1.4fr;gap:48px;align-items:start}
+.faqsplit>*{min-width:0}
+.faq{display:grid;gap:10px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:18px 22px}
+.faq details[open]{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;font-size:17px;font-weight:700}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{flex:none;width:30px;height:30px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-style:normal;transition:transform .25s}
+.faq details[open] summary i{transform:rotate(45deg);background:var(--accent);color:#fff}
+.faq details p{color:var(--ink-2);margin-top:10px;max-width:640px}
+
+/* About */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.split>*{min-width:0}
+.split h2{font-size:clamp(28px,3.4vw,42px);margin:12px 0 16px}
+.split p{color:var(--ink-2);margin-bottom:12px}
+.values{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.values div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);display:grid;gap:6px}
+.values i{width:38px;height:38px;border-radius:10px;background:var(--accent-soft);display:grid;place-items:center;margin-bottom:6px}
+.values i svg{stroke:var(--accent)}
+.values b{font-size:18px}
+.values span{color:var(--ink-2);font-size:15px}
+.collage{aspect-ratio:1.1;border-radius:var(--r);background:linear-gradient(160deg,var(--accent-soft),color-mix(in srgb,var(--glow-2) 45%,var(--surface)));position:relative;overflow:hidden;border:1px solid var(--line);max-width:100%}
+.collage .w{position:absolute;background:var(--surface);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow);font-weight:700;font-size:14px;display:grid;gap:4px}
+.collage .w small{font:500 10px var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
+.collage code{font:500 12px var(--mono);color:var(--accent)}
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.team div{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:20px;display:grid;gap:8px}
+.team i{aspect-ratio:1;border-radius:14px;background:var(--bg);display:grid;place-items:center;color:var(--ink-2);font:500 12px var(--mono);font-style:normal}
+.team b{font-size:16px}.team span{color:var(--ink-2);font-size:14px}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:24px;align-items:start}
+.contact-grid>*{min-width:0}
+.formcard{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:clamp(22px,4vw,40px);box-shadow:var(--shadow)}
+.prog{display:flex;gap:8px;margin-bottom:28px}
+.prog div{flex:1;display:grid;gap:8px}
+.prog i{height:4px;border-radius:999px;background:var(--line);overflow:hidden;position:relative}
+.prog i::after{content:"";position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.prog .done i::after,.prog .cur i::after{transform:scaleX(1)}
+.prog span{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.prog .cur span{color:var(--ink)}
+.fstep h3{font-size:26px;margin-bottom:6px}
+.fstep>p{color:var(--ink-2);margin-bottom:24px}
+.field{display:grid;gap:8px;margin-bottom:22px;min-width:0}
+.field>label,.field>.lbl{font-weight:700;font-size:15px}
+.field .hint{color:var(--ink-2);font-size:13px;font-weight:400}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.inp{width:100%;min-width:0;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:12px 15px;font:500 16px var(--body);transition:border-color .2s,background .2s}
+.inp:focus{outline:none;border-color:var(--accent);background:var(--surface);box-shadow:0 0 0 3px var(--accent-soft)}
+textarea.inp{min-height:120px;resize:vertical;line-height:1.5}
+.phone{display:flex}
+.phone span{display:grid;place-items:center;padding:0 14px;border:1.5px solid var(--line);border-right:0;border-radius:12px 0 0 12px;background:var(--surface);font:500 15px var(--mono);color:var(--ink-2)}
+.phone .inp{border-radius:0 12px 12px 0}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.opt span{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:9px 14px;font-weight:600;font-size:14px;cursor:pointer;transition:all .15s}
+.opt input:checked+span{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.opt input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.opt.tile span{border-radius:14px;padding:14px 16px;flex-direction:column;align-items:flex-start;gap:2px;width:100%}
+.opt.tile small{font-weight:400;opacity:.8;font-size:12px}
+.opts.tiles{display:grid;grid-template-columns:repeat(3,1fr)}
+.err{color:var(--danger);font-size:13px;font-weight:600}
+.field.bad .inp,.field.bad .opt span{border-color:var(--danger)}
+.count{justify-self:end;font:500 12px var(--mono);color:var(--ink-2)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)}
+.check input{width:18px;height:18px;margin-top:2px;accent-color:var(--accent);flex:none}
+.factions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px;flex-wrap:wrap;padding-top:20px;border-top:1px solid var(--line-2)}
+.saved{font:500 12px var(--mono);color:var(--ink-2)}
+.done-card{text-align:center;display:grid;gap:14px;justify-items:center}
+.done-card .big{width:72px;height:72px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center}
+.done-card .big svg{stroke:var(--accent)}
+.done-card h3{font-size:28px}
+.summary{width:100%;text-align:left;background:var(--bg);border-radius:16px;padding:20px;display:grid;grid-template-columns:140px 1fr;gap:10px 16px;font-size:15px;margin:0}
+.summary dt{font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);padding-top:3px}
+.summary dd{margin:0;font-weight:600;min-width:0;overflow-wrap:anywhere}
+.ref{font:500 14px var(--mono);background:var(--bg);border-radius:999px;padding:8px 16px}
+.note{font-size:13px;color:var(--ink-2);background:var(--accent-soft);border-radius:12px;padding:10px 14px}
+.aside{display:grid;gap:14px}
+.next ol{list-style:none;padding:0;margin:0;display:grid;gap:16px;counter-reset:n}
+.next li{display:grid;grid-template-columns:32px 1fr;gap:12px;counter-increment:n}
+.next li::before{content:counter(n);width:32px;height:32px;border-radius:10px;background:var(--accent);color:#fff;display:grid;place-items:center;font:500 13px var(--mono)}
+.next li b{display:block}
+.next li span{color:var(--ink-2);font-size:14px}
+.reach{display:grid;gap:8px}
+.reach div{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--bg);border-radius:12px;padding:12px 14px;min-width:0}
+.reach small{display:block;font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+.reach b{font-weight:700;overflow-wrap:anywhere}
+.copy{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;font:700 12px var(--body);cursor:pointer;flex:none}
+
+/* CTA band */
+.final{background:var(--deep);color:var(--deep-fg);border-radius:28px;padding:clamp(36px,5vw,64px);display:grid;grid-template-columns:1.3fr auto;gap:32px;align-items:center;position:relative;overflow:hidden}
+.final canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.55}
+.final>div{position:relative}
+.final h2{font-size:clamp(28px,3.6vw,46px)}
+.final p{color:var(--deep-2);margin-top:12px}
+.final .cta-row{margin-top:0;justify-content:flex-end}
+.final .btn{background:var(--accent);color:#fff}.final .btn .knob{background:var(--accent-2)}.final .btn .knob svg{stroke:#fff}
+.final .btn-ghost{background:transparent;color:var(--deep-fg);border-color:var(--deep-line)}
+.final .btn-ghost:hover{border-color:var(--deep-fg)}
+
+/* Footer */
+footer{background:var(--deep);color:var(--deep-2);padding-block:64px 110px;margin-top:clamp(56px,7vw,96px)}
+.foot{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.2fr;gap:32px}
+.foot>*{min-width:0}
+.foot .logo{color:var(--deep-fg);font-size:22px}
+.foot .logo svg rect{fill:var(--deep-fg)}
+.foot h4{margin:0 0 16px;color:var(--deep-fg);font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.foot ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.foot a{text-decoration:none;font-size:15px}
+.foot a:hover{color:var(--deep-fg)}
+.foot .ct{display:grid;gap:10px;font-size:15px}
+.foot .ct b{color:var(--deep-fg);font-weight:600}
+.foot .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.foot .badges span{border:1px solid var(--deep-line);border-radius:8px;padding:5px 10px;font:500 11px var(--mono);color:var(--deep-fg)}
+.legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:48px;padding-top:24px;border-top:1px solid var(--deep-line);font-size:14px}
+.legal span{display:flex;gap:18px;flex-wrap:wrap}
+
+/* Build plan */
+.plan{padding-block:48px 140px}
+.plan h1{font-size:clamp(36px,5vw,60px);margin:12px 0 16px}
+.plan .lead{max-width:740px}
+.plan-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:40px}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.pcard.wide{grid-column:1/-1}
+.pcard h3{font-size:22px}
+.pcard p,.pcard li{color:var(--ink-2)}
+.pcard ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:8px 16px;font-size:15px;margin:0}
+.kv dt{font:500 13px var(--mono);color:var(--accent);padding-top:2px}
+.kv dd{margin:0}
+.tbl{overflow-x:auto}
+.tbl table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+.tbl th,.tbl td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+.tbl td:first-child{font-weight:700;white-space:nowrap}
+.phases{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.ph{border-top:3px solid var(--accent);padding-top:12px}
+.ph b{font:500 12px var(--mono);color:var(--accent)}
+.ph h4{margin:6px 0;font-size:17px}
+.ph p{font-size:14px}
+
+.page{animation:fade .35s ease}
+@keyframes fade{from{opacity:.5;transform:translateY(4px)}}
+
+@media (max-width:1100px){
+  .links,.nav-cta .btn-ghost{display:none}.burger{display:grid;place-items:center}
+  .hero-grid,.why,.process,.gov-band,.detail,.contact-grid,.split,.faqsplit,.audit,.phero .wrap,.final{grid-template-columns:1fr}
+  .why .sticky,.side{position:static}
+  .trio,.svc-grid,.ind-full,.models,.ind{grid-template-columns:1fr 1fr}
+  .q-track{grid-auto-columns:calc((100% - 20px)/2)}
+  .foot{grid-template-columns:1fr 1fr 1fr}.foot>div:first-child{grid-column:1/-1}
+  .phases{grid-template-columns:1fr 1fr}
+  .team{grid-template-columns:1fr 1fr}
+  .final .cta-row{justify-content:flex-start}
+  .mock{max-width:620px}
+}
+@media (max-width:680px){
+  .topbar .hide-s{display:none}
+  .nav-cta .btn{display:none}
+  .trio,.svc-grid,.ind,.plan-grid,.ind-full,.models,.offer,.gov-groups,.values,.row2,.cmp article,.pager{grid-template-columns:1fr}
+  .cmp .bad{border-right:0;border-bottom:1px solid var(--line)}
+  .gov-groups .box.span ul{grid-template-columns:1fr}
+  .statbar{grid-template-columns:1fr 1fr}
+  .statbar div:nth-child(3){border-left:0}
+  .statbar div:nth-child(n+3){border-top:1px solid var(--line)}
+  .stack .wrap{grid-template-columns:1fr}
+  .q-track{grid-auto-columns:88%}
+  .kv,.summary{grid-template-columns:1fr}
+  .phases,.opts.tiles,.gov-stats{grid-template-columns:1fr}
+  .foot{grid-template-columns:1fr 1fr}
+  .mock{padding-left:0}
+  .phone-m{display:none}
+  .float{right:8px}
+  .pager a:last-child{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="arr" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ne" viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="chk" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="mark" viewBox="0 0 34 34"><rect width="34" height="34" rx="10" fill="var(--ink)"/><path d="M7 20c3-6 6-6 8 0s5 6 8 0 4-5 4-5" fill="none" stroke="var(--glow)" stroke-width="3" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<div id="site">
+<div class="topbar"><div class="wrap">
+  <span><span class="hide-s">India-based software &amp; IT services company</span><span><b>Mon – Sat</b> 10 am – 7 pm IST</span></span>
+  <span><span class="hide-s">hello@codewavetech.in</span><a href="#government">Government tenders →</a></span>
+</div></div>
+<div class="nav-shell"><div class="wrap">
+  <nav class="nav" aria-label="Main">
+    <a class="logo" href="#home" aria-label="CodeWaveTech home"><svg width="34" height="34"><use href="#mark"/></svg>CodeWaveTech</a>
+    <ul class="links">
+      <li><button id="svc-btn" aria-expanded="false" aria-controls="mega" data-nav="services">Services <svg width="14" height="14" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></li>
+      <li><a href="#industries" data-nav="industries">Industries</a></li>
+      <li><a href="#government" data-nav="government">Government</a></li>
+      <li><a href="#process" data-nav="process">How we work</a></li>
+      <li><a href="#about" data-nav="about">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn-ghost" href="#contact" data-nav="contact">Contact</a>
+      <a class="btn" href="#contact">Get a quote <span class="knob"><svg width="15" height="15"><use href="#arr"/></svg></span></a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="mega" id="mega" hidden>
+      <div class="core"><h4>Core services</h4><ul id="mega-core"></ul></div>
+      <div><h4>More services</h4><ul id="mega-more"></ul><a href="#services" class="link" style="margin-top:10px">All 14 services →</a></div>
+      <div class="gov">
+        <span class="eyebrow plain" style="color:var(--glow)">Government &amp; e-Governance</span>
+        <strong style="font-size:20px">Portals and systems for departments</strong>
+        <p>GIGW 3.0 portals, Aadhaar eKYC, DigiLocker, NIC and MeghRaj hosting.</p>
+        <a href="#government" class="link">See government solutions →</a>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu" hidden></div>
+</div></div>
+
+<main id="main">
+
+<!-- ================= HOME ================= -->
+<div class="page" id="p-home">
+<header class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="pill-badge"><em>Now booking</em>New projects for Q1 2027</span>
+        <h1>Software that grows with your <em>business</em></h1>
+        <p class="lead">Websites, apps, POS, AI and government portals, designed, built and maintained by one team so you can stay focused on running the business.</p>
+        <div class="cta-row">
+          <a class="btn" href="#contact">Get a free consultation <span class="knob"><svg width="16" height="16"><use href="#arr"/></svg></span></a>
+          <a class="btn-ghost" href="#services">Explore services</a>
+        </div>
+        <div class="assure">
+          <span><svg width="16" height="16"><use href="#chk"/></svg>Fixed, written quotes</span>
+          <span><svg width="16" height="16"><use href="#chk"/></svg>Weekly demos</span>
+          <span><svg width="16" height="16"><use href="#chk"/></svg>You own the code</span>
+        </div>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="win">
+          <div class="win-bar"><i></i><i></i><i></i><span>app.yourbusiness.in/dashboard</span></div>
+          <div class="win-body">
+            <div class="win-side"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+            <div class="win-main">
+              <h5>Today's overview <span>3 outlets · live</span></h5>
+              <div class="kpis">
+                <div><small>Sales</small><b>₹48,250</b><em>▲ 12%</em></div>
+                <div><small>Orders</small><b>126</b><em>▲ 8%</em></div>
+                <div><small>GST collected</small><b>₹7,360</b><em>Auto-filed</em></div>
+              </div>
+              <div class="bars"><i style="height:38%"></i><i style="height:52%"></i><i style="height:44%"></i><i style="height:66%"></i><i style="height:58%"></i><i style="height:74%"></i><i style="height:92%"></i></div>
+              <div class="rows">
+                <div><span>#1042 · Table 6</span><b>₹1,840</b><span class="st">Paid · UPI</span></div>
+                <div><span>#1041 · Online</span><b>₹960</b><span class="st">Out for delivery</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-m"><div class="scr">
+          <small>9:41</small>
+          <div class="notif wa"><b>WhatsApp order bot</b>New order #1043 confirmed. ETA 25 min.</div>
+          <div class="notif"><b>Razorpay</b>₹1,840 received</div>
+          <div class="notif"><b>Stock alert</b>Paneer below 2 kg</div>
+        </div></div>
+        <div class="float"><i><svg width="14" height="14"><use href="#chk"/></svg></i><span>Deployed to production<small>build passed · 42s</small></span></div>
+      </div>
+    </div>
+    <div class="statbar">
+      <div><b>14</b><span>Service areas</span></div>
+      <div><b>9</b><span>Industries served</span></div>
+      <div><b>1</b><span>Team from design to support</span></div>
+      <div><b>24/7</b><span>Support on maintenance plans</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="stack"><div class="wrap"><p>Technologies we build with</p><div class="marquee" aria-hidden="true"><div class="track" id="stack"></div></div></div></div>
+
+<section><div class="wrap">
+  <div class="shead">
+    <div><span class="eyebrow">Get started</span><h2 class="h2">Start where you are. We'll guide you to the right next step.</h2></div>
+    <div class="r"><p class="lead">Whether you're fixing a problem, comparing partners or ready to build, there's a clear way in.</p></div>
+  </div>
+  <div class="trio">
+    <article class="card">
+      <span class="tag">Fix what's broken</span>
+      <h3>My tech is holding the business back</h3>
+      <p>Slow website, manual billing, no online orders, and tools that don't talk to each other.</p>
+      <a class="link cta" href="#services">See what we fix →</a>
+      <div class="illus">
+        <span class="prob" style="left:36%;top:12%;transform:rotate(8deg)">Slow website</span>
+        <span class="prob" style="left:6%;top:34%;transform:rotate(-9deg)">Manual GST billing</span>
+        <span class="prob" style="left:30%;top:56%;transform:rotate(6deg)">No mobile app</span>
+        <span class="prob" style="left:8%;top:77%;transform:rotate(-3deg)">Data in 5 spreadsheets</span>
+      </div>
+    </article>
+    <article class="card">
+      <span class="tag">Compare partners</span>
+      <h3>I want to see how you work</h3>
+      <p>A four-step process with a fixed plan, weekly demos and a launch you can count on.</p>
+      <a class="link cta" href="#process">Explore the process →</a>
+      <div class="illus"><div class="mini-steps">
+        <div><b>1</b><span>Discovery call<small>Goals, users and budget</small></span></div>
+        <div><b>2</b><span>Plan &amp; design<small>Scope, wireframes, estimate</small></span></div>
+        <div><b>3</b><span>Build &amp; test<small>Sprints with weekly demos</small></span></div>
+        <div style="opacity:.55"><b>4</b><span>Launch &amp; support<small>Go-live, AMC, monitoring</small></span></div>
+      </div></div>
+    </article>
+    <article class="card">
+      <span class="tag">Ready to build</span>
+      <h3>I'm ready to start now</h3>
+      <p>Get a clear plan, timeline and estimate in a free 30-minute consultation.</p>
+      <a class="link cta" href="#contact">Book free consultation →</a>
+      <div class="illus"><div class="chatbox">
+        <div class="bub me">We need a POS for 3 restaurant outlets with KOT.</div>
+        <div class="bub us">Got it. Do you also need online ordering and GST invoices?</div>
+        <div class="bub me">Yes, and a WhatsApp bot for orders.</div>
+        <div class="bub us typing"><i></i><i></i><i></i></div>
+      </div></div>
+    </article>
+  </div>
+</div></section>
+
+<section class="tight"><div class="wrap">
+  <div class="why">
+    <div class="sticky">
+      <span class="eyebrow">Why CodeWaveTech</span>
+      <h2 class="h2">Managing your tech wasn't supposed to be your second job.</h2>
+      <p class="lead">Between customers, staff and sales, software problems keep pulling you away from growth. Here's how we take them off your plate.</p>
+      <a class="btn" href="#contact">Book free 30-min consultation <span class="knob"><svg width="16" height="16"><use href="#arr"/></svg></span></a>
+    </div>
+    <div class="cmp">
+      <article><div class="bad"><small>The usual problem</small><h4>Freelancers disappear</h4><p>The developer who built your site stopped replying, and nobody else knows the code.</p></div><div class="good"><small>With us</small><h4>A team that stays</h4><p>Documented code, shared access and an AMC, so support never depends on one person.</p></div></article>
+      <article><div class="bad"><small>The usual problem</small><h4>Too many disconnected tools</h4><p>Billing, inventory and CRM sit in separate apps that never sync.</p></div><div class="good"><small>With us</small><h4>One connected system</h4><p>POS, store, CRM and accounts linked through APIs, with one dashboard on top.</p></div></article>
+      <article><div class="bad"><small>The usual problem</small><h4>Security you keep postponing</h4><p>No backups, an expired SSL and a site that got hacked once already.</p></div><div class="good"><small>With us</small><h4>Secure by default</h4><p>Daily backups, SSL, monitoring and security hardening included in every plan.</p></div></article>
+    </div>
+  </div>
+</div></section>
+
+<section class="tight"><div class="wrap">
+  <div class="shead">
+    <div><span class="eyebrow">Services</span><h2 class="h2">What we build for you, from first idea to daily support</h2></div>
+    <div class="r"><p class="lead">Six core services cover most projects. Eight more handle everything from branding to IoT.</p><a class="link" href="#services">View all 14 services →</a></div>
+  </div>
+  <div class="svc-grid" id="home-svc"></div>
+</div></section>
+
+<section class="tight"><div class="wrap">
+  <div class="shead">
+    <div><span class="eyebrow">How we work</span><h2 class="h2">A clear four-step path from idea to launch</h2></div>
+    <div class="r"><p class="lead">Fixed scope, weekly demos and written estimates at every stage.</p><a class="link" href="#process">Engagement models →</a></div>
+  </div>
+  <div class="process" data-stepper></div>
+</div></section>
+
+<section class="tight"><div class="wrap">
+  <div class="gov-band">
+    <div>
+      <span class="eyebrow">Government &amp; e-Governance</span>
+      <h2>Citizen portals and department systems, built to government standards.</h2>
+      <p>From Gram Panchayat websites to state-level e-Office, land records and grievance portals. Bilingual by default, accessible, audited and hosted where your department requires.</p>
+      <a class="btn" href="#government">Explore government solutions <span class="knob"><svg width="16" height="16"><use href="#arr"/></svg></span></a>
+    </div>
+    <div class="comp" data-comp></div>
+  </div>
+</div></section>
+
+<section class="tight"><div class="wrap">
+  <div class="shead">
+    <div><span class="eyebrow">Industries</span><h2 class="h2">Built for the way your industry works</h2></div>
+    <div class="r"><a class="link" href="#industries">See industry solutions →</a></div>
+  </div>
+  <div class="ind" id="home-ind"></div>
+</div></section>
+
+<section class="tight"><div class="wrap">
+  <div class="shead">
+    <div><span class="eyebrow">Client stories</span><h2 class="h2">What clients say</h2></div>
+    <div class="r"><div class="q-nav"><button id="qprev" aria-label="Previous">‹</button><button id="qnext" aria-label="Next">›</button></div></div>
+  </div>
+  <div class="q-track" id="qtrack"></div>
+</div></section>
+
+<section class="tight"><div class="wrap">
+  <div class="audit">
+    <div>
+      <h2>Book a free 30-minute consultation</h2>
+      <p>No obligation. In 30 minutes we'll understand what you need and map the fastest, most affordable way to build it.</p>
+      <a class="btn" href="#contact">Start your project brief <span class="knob"><svg width="16" height="16"><use href="#arr"/></svg></span></a>
+    </div>
+    <ul><li>A recommended tech stack and approach</li><li>A rough timeline with milestones</li><li>A ballpark budget range</li></ul>
+  </div>
+</div></section>
+
+<section class="tight"><div class="wrap">
+  <div class="faqsplit">
+    <div class="shead" style="grid-template-columns:1fr;margin:0">
+      <div><span class="eyebrow">FAQ</span><h2 class="h2">Frequently asked questions</h2></div>
+      <div class="r"><p class="lead">Can't find your answer? Our team replies within one business day.</p><a class="link" href="#contact">Ask us directly →</a></div>
+    </div>
+    <div class="faq" data-faq="general"></div>
+  </div>
+</div></section>
+</div>
+
+<!-- ================= SERVICES ================= -->
+<div class="page" id="p-services" hidden>
+  <header class="phero"><div class="wrap">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span>/</span><span>Services</span></nav>
+      <h1>Every service your business needs, under one roof</h1>
+      <p class="lead">14 service areas, from a five-page website to a state-wide citizen portal. Pick one to see exactly what's included.</p>
+    </div>
+    <div class="facts"><div><span>Core services</span><b>6</b></div><div><span>Specialist services</span><b>8</b></div><div><span>Individual offerings</span><b>130+</b></div><div><span>Consultation</span><b>Free, 30 min</b></div></div>
+  </div></header>
+  <div class="wrap">
+    <div class="tabs" role="group" aria-label="Filter services" id="tabs"></div>
+    <div class="svc-grid" id="svc-grid" style="margin-top:24px"></div>
+  </div>
+</div>
+
+<!-- ================= SERVICE DETAIL ================= -->
+<div class="page" id="p-service" hidden></div>
+
+<!-- ================= INDUSTRIES ================= -->
+<div class="page" id="p-industries" hidden>
+  <header class="phero"><div class="wrap">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span>/</span><span>Industries</span></nav>
+      <h1>Software shaped around how your industry works</h1>
+      <p class="lead">We've packaged the usual needs of nine industries, so your project starts from proven building blocks instead of a blank page.</p>
+    </div>
+    <div class="facts"><div><span>Industries</span><b>9</b></div><div><span>Starting point</span><b>Proven modules</b></div><div><span>Built for India</span><b>GST · UPI · Hindi</b></div></div>
+  </div></header>
+  <div class="wrap"><div class="ind-full" id="ind-full"></div></div>
+</div>
+
+<!-- ================= GOVERNMENT ================= -->
+<div class="page" id="p-government" hidden>
+  <header class="phero"><div class="wrap">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span>/</span><span>Government solutions</span></nav>
+      <h1>e-Governance portals and systems for every level of government</h1>
+      <p class="lead">Ministries, state departments, district administrations, municipal corporations and Gram Panchayats. Compliant, bilingual and hosted on government infrastructure.</p>
+      <div class="cta-row"><a class="btn" href="#contact" data-quote="gov">Discuss a tender or project <span class="knob"><svg width="16" height="16"><use href="#arr"/></svg></span></a></div>
+    </div>
+    <div class="facts"><div><span>Standard</span><b>GIGW 3.0 · WCAG</b></div><div><span>Audits</span><b>STQC · CERT-In</b></div><div><span>Hosting</span><b>NIC · MeghRaj · SDC</b></div><div><span>Languages</span><b>Hindi · English · regional</b></div></div>
+  </div></header>
+  <div class="wrap">
+    <div class="gov-band">
+      <div>
+        <span class="eyebrow">Compliance first</span>
+        <h2>Built to pass audits the first time.</h2>
+        <p>Every government project ships with GIGW 3.0 and WCAG checks, a security audit through a CERT-In empanelled partner, and documentation for STQC certification.</p>
+        <div class="gov-stats"><div><b>10</b><span>Portal types</span></div><div><b>9</b><span>Software systems</span></div><div><b>7</b><span>Integrations</span></div></div>
+      </div>
+      <div class="comp" data-comp></div>
+    </div>
+  </div>
+  <section><div class="wrap"><div class="gov-groups" id="gov-groups"></div></div></section>
+</div>
+
+<!-- ================= PROCESS ================= -->
+<div class="page" id="p-process" hidden>
+  <header class="phero"><div class="wrap">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span>/</span><span>How we work</span></nav>
+      <h1>A clear path from first call to launch day</h1>
+      <p class="lead">Fixed scope, weekly demos and written estimates. You always know what's being built, what it costs and when it ships.</p>
+    </div>
+    <div class="facts"><div><span>First call</span><b>Free, 30 min</b></div><div><span>Proposal</span><b>3–5 days</b></div><div><span>Progress updates</span><b>Weekly demos</b></div><div><span>Code ownership</span><b>Yours</b></div></div>
+  </div></header>
+  <div class="wrap"><div class="process" data-stepper></div></div>
+  <section><div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow">Engagement models</span><h2 class="h2">Three ways to work together</h2></div>
+      <div class="r"><p class="lead">Priced by scope, with a written estimate before any work starts.</p></div>
+    </div>
+    <div class="models">
+      <div class="model"><span class="eyebrow">Best for new builds</span><h3>Fixed-scope project</h3><p>One price for a clearly defined product, paid in milestones.</p><ul><li>Written scope and quote</li><li>Milestone-based payments</li><li>3 months free support after launch</li></ul></div>
+      <div class="model hl"><span class="eyebrow">Best for growing teams</span><h3>Dedicated developers</h3><p>Our developers work as part of your team, hourly or monthly.</p><ul><li>Pick the skills you need</li><li>Daily updates, your tools</li><li>Scale up or down monthly</li></ul></div>
+      <div class="model"><span class="eyebrow">Best after launch</span><h3>Annual maintenance (AMC)</h3><p>We keep your website, app or software secure and up to date.</p><ul><li>Updates, backups, monitoring</li><li>Bug fixes and small changes</li><li>24/7 technical support</li></ul></div>
+    </div>
+  </div></section>
+  <section class="tight"><div class="wrap"><div class="faqsplit">
+    <div><span class="eyebrow">FAQ</span><h2 class="h2" style="margin-top:12px">Questions about the process</h2></div>
+    <div class="faq" data-faq="process"></div>
+  </div></div></section>
+</div>
+
+<!-- ================= ABOUT ================= -->
+<div class="page" id="p-about" hidden>
+  <header class="phero"><div class="wrap">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span>/</span><span>About</span></nav>
+      <h1>One team for everything your business runs on</h1>
+      <p class="lead">CodeWaveTech builds and looks after the software behind restaurants, shops, clinics, schools, startups and government departments.</p>
+    </div>
+    <div class="facts"><div><span>Headquarters</span><b>India</b></div><div><span>Service areas</span><b>14</b></div><div><span>Industries</span><b>9</b></div><div><span>Support</span><b>24/7 on AMC</b></div></div>
+  </div></header>
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <span class="eyebrow">Why we exist</span>
+        <h2>Business owners deserve a tech partner who stays.</h2>
+        <p>Too many businesses get a website from a freelancer, a POS from one vendor and an app from another, and then nobody is around when something breaks.</p>
+        <p>We do design, development, hosting and support under one roof. The team that builds your software is the team that answers when you call.</p>
+        <div class="cta-row"><a class="btn" href="#contact">Work with us <span class="knob"><svg width="16" height="16"><use href="#arr"/></svg></span></a></div>
+      </div>
+      <div class="collage" aria-hidden="true">
+        <div class="w" style="left:8%;top:10%"><small>Deploy</small><code>✓ build passed · 42s</code></div>
+        <div class="w" style="right:8%;top:28%"><small>Invoice #1042</small>GST 18% · ₹ 23,600</div>
+        <div class="w" style="left:12%;top:50%"><small>WhatsApp bot</small>"Your order is on the way"</div>
+        <div class="w" style="right:10%;bottom:12%"><small>Portal</small>हिन्दी · English</div>
+      </div>
+    </div>
+  </div>
+  <section><div class="wrap">
+    <div class="shead"><div><span class="eyebrow">Our promises</span><h2 class="h2">What you can expect from us</h2></div><div class="r"><p class="lead">These are the promises we hold every project to.</p></div></div>
+    <div class="values" style="grid-template-columns:repeat(4,1fr)" id="values">
+      <div><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg></i><b>Plain language</b><span>No jargon. You'll always understand what we're building and why.</span></div>
+      <div><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></i><b>Fixed quotes</b><span>A written estimate before work starts, with no surprise invoices.</span></div>
+      <div><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0"/></svg></i><b>You own it</b><span>Code, designs and admin access are handed over at launch.</span></div>
+      <div><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/></svg></i><b>We stay</b><span>Maintenance and support continue long after go-live.</span></div>
+    </div>
+  </div></section>
+  <section class="tight"><div class="wrap">
+    <div class="shead"><div><span class="eyebrow">Leadership</span><h2 class="h2">Meet the team</h2></div><div class="r"><p class="lead">Photos, roles and short bios go here once you share them.</p></div></div>
+    <div class="team"><div><i>Photo</i><b>Founder name</b><span>Founder &amp; CEO</span></div><div><i>Photo</i><b>Name</b><span>Head of Engineering</span></div><div><i>Photo</i><b>Name</b><span>Design Lead</span></div><div><i>Photo</i><b>Name</b><span>Client Success</span></div></div>
+  </div></section>
+</div>
+
+<!-- ================= CONTACT ================= -->
+<div class="page" id="p-contact" hidden>
+  <header class="phero"><div class="wrap">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span>/</span><span>Contact</span></nav>
+      <h1>Tell us about your project</h1>
+      <p class="lead">Three short steps, about 2 minutes. We reply within one business day with next steps and a time for your free consultation.</p>
+    </div>
+    <div class="facts"><div><span>Response time</span><b>1 business day</b></div><div><span>Consultation</span><b>Free, 30 min</b></div><div><span>NDA</span><b>On request</b></div></div>
+  </div></header>
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="formcard">
+        <div id="form-area">
+          <div class="prog" id="prog" aria-hidden="true">
+            <div><i></i><span>1 · Project</span></div><div><i></i><span>2 · Details</span></div><div><i></i><span>3 · About you</span></div>
+          </div>
+          <form id="brief" novalidate>
+            <div class="fstep" data-step="1">
+              <h3>What can we help you with?</h3>
+              <p>Choose everything that applies.</p>
+              <div class="field" id="f-services">
+                <span class="lbl">Services <span class="hint">· pick one or more</span></span>
+                <div class="opts" id="svc-opts"></div>
+                <span class="err" id="e-services" hidden>Choose at least one service so we know who to put on the call.</span>
+              </div>
+              <div class="field" id="f-stage">
+                <span class="lbl">Where are you today?</span>
+                <div class="opts tiles" id="stage-opts"></div>
+                <span class="err" id="e-stage" hidden>Choose the option closest to where you are.</span>
+              </div>
+            </div>
+            <div class="fstep" data-step="2" hidden>
+              <h3>Tell us a bit more</h3>
+              <p>Rough answers are fine. They help us come prepared.</p>
+              <div class="field" id="f-budget">
+                <span class="lbl">Approximate budget</span>
+                <div class="opts" id="budget-opts"></div>
+                <span class="err" id="e-budget" hidden>Pick a budget range, or choose "Not sure yet".</span>
+              </div>
+              <div class="field" id="f-timeline">
+                <span class="lbl">When do you want to launch?</span>
+                <div class="opts" id="time-opts"></div>
+              </div>
+              <div class="field" id="f-msg">
+                <label for="msg">Describe your project <span class="hint">· optional</span></label>
+                <textarea class="inp" id="msg" maxlength="1000" placeholder="For example: a website and online ordering for our 3 bakery outlets in Pune, with Razorpay and delivery tracking."></textarea>
+                <span class="count" id="msg-count">0 / 1000</span>
+              </div>
+              <div class="field">
+                <label for="ref-link">Existing website or app link <span class="hint">· optional</span></label>
+                <input class="inp" id="ref-link" type="url" inputmode="url" placeholder="https://">
+              </div>
+            </div>
+            <div class="fstep" data-step="3" hidden>
+              <h3>How do we reach you?</h3>
+              <p>We'll only use this to reply to your request.</p>
+              <div class="row2">
+                <div class="field" id="f-name"><label for="name">Full name</label><input class="inp" id="name" autocomplete="name" aria-describedby="e-name"><span class="err" id="e-name" hidden>Enter your name.</span></div>
+                <div class="field"><label for="company">Company or department <span class="hint">· optional</span></label><input class="inp" id="company" autocomplete="organization"></div>
+              </div>
+              <div class="row2">
+                <div class="field" id="f-email"><label for="email">Work email</label><input class="inp" id="email" type="email" autocomplete="email" aria-describedby="e-email"><span class="err" id="e-email" hidden>Enter a valid email, like name@company.com.</span></div>
+                <div class="field" id="f-phone"><label for="phone">Mobile / WhatsApp</label><div class="phone"><span>+91</span><input class="inp" id="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="11" placeholder="98765 43210" aria-describedby="e-phone"></div><span class="err" id="e-phone" hidden>Enter a 10-digit mobile number.</span></div>
+              </div>
+              <div class="row2">
+                <div class="field"><span class="lbl">Preferred way to reach you</span><div class="opts" id="via-opts"></div></div>
+                <div class="field"><label for="when">Best time to call</label>
+                  <select class="inp" id="when"><option>Any time</option><option>Morning (9 am – 12 pm)</option><option>Afternoon (12 – 4 pm)</option><option>Evening (4 – 7 pm)</option></select></div>
+              </div>
+              <div class="field" id="f-consent">
+                <label class="check"><input type="checkbox" id="consent"> I agree to be contacted about this request. CodeWaveTech will not share my details with anyone else.</label>
+                <span class="err" id="e-consent" hidden>Please confirm so we can contact you.</span>
+              </div>
+            </div>
+            <div class="factions">
+              <button type="button" class="btn-ghost" id="back" hidden>← Back</button>
+              <span class="saved" id="saved"></span>
+              <button type="submit" class="btn" id="next">Continue</button>
+            </div>
+          </form>
+        </div>
+        <div id="done" class="done-card" hidden></div>
+      </div>
+      <aside class="aside">
+        <div class="box next"><h4>What happens next</h4>
+          <ol>
+            <li><span><b>We review your brief</b><span>Within one business day.</span></span></li>
+            <li><span><b>Free 30-minute call</b><span>On Google Meet, phone or WhatsApp.</span></span></li>
+            <li><span><b>Written proposal</b><span>Scope, timeline and fixed quote in 3–5 days.</span></span></li>
+          </ol>
+        </div>
+        <div class="box"><h4>Prefer to talk directly?</h4>
+          <div class="reach">
+            <div><span><small>Email</small><b id="mail">hello@codewavetech.in</b></span><button class="copy" data-copy="mail">Copy</button></div>
+            <div><span><small>Phone / WhatsApp</small><b id="tel">+91 XXXXX XXXXX</b></span><button class="copy" data-copy="tel">Copy</button></div>
+            <div><span><small>Office hours</small><b>Mon – Sat, 10 am – 7 pm IST</b></span></div>
+          </div>
+        </div>
+        <div class="box accent"><h4>Government tender?</h4><p>Choose "Government portal" in step 1 and mention the tender number. We'll send company documents and empanelment details with our reply.</p></div>
+      </aside>
+    </div>
+  </div>
+  <section><div class="wrap"><div class="faqsplit">
+    <div><span class="eyebrow">Before you send</span><h2 class="h2" style="margin-top:12px">Common questions</h2></div>
+    <div class="faq" data-faq="contact"></div>
+  </div></div></section>
+</div>
+
+<!-- shared CTA -->
+<section class="tight" id="final-cta" style="padding-bottom:0"><div class="wrap">
+  <div class="final">
+    <canvas id="waves" aria-hidden="true"></canvas>
+    <div><h2>Let's build the software your business deserves.</h2><p>No obligation. We'll map your top 3 priorities in 30 minutes.</p></div>
+    <div class="cta-row">
+      <a class="btn" href="#contact">Book free consultation <span class="knob"><svg width="16" height="16"><use href="#arr"/></svg></span></a>
+      <a class="btn-ghost" href="#services">Explore services</a>
+    </div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div class="foot">
+    <div>
+      <a class="logo" href="#home"><svg width="36" height="36" viewBox="0 0 34 34"><rect width="34" height="34" rx="10"/><path d="M7 20c3-6 6-6 8 0s5 6 8 0 4-5 4-5" fill="none" stroke="#127A6A" stroke-width="3" stroke-linecap="round"/></svg>CodeWaveTech</a>
+      <p style="margin-top:16px;max-width:300px">Web, mobile, AI, business software and e-governance solutions for businesses and government across India.</p>
+      <div class="badges"><span>GIGW 3.0</span><span>DPDP aligned</span><span>Made in India</span></div>
+    </div>
+    <div><h4>Services</h4><ul id="foot-svc"></ul></div>
+    <div><h4>Company</h4><ul><li><a href="#about">About</a></li><li><a href="#process">How we work</a></li><li><a href="#industries">Industries</a></li><li><a href="#government">Government</a></li><li><a href="#services">All services</a></li></ul></div>
+    <div><h4>Industries</h4><ul id="foot-ind"></ul></div>
+    <div><h4>Contact</h4><div class="ct"><span>Email<br><b>hello@codewavetech.in</b></span><span>Phone / WhatsApp<br><b>+91 XXXXX XXXXX</b></span><span>Hours<br><b>Mon – Sat, 10 am – 7 pm IST</b></span><a class="link" style="color:var(--glow)" href="#contact">Start a project brief →</a></div></div>
+  </div>
+  <div class="legal"><span>© 2026 CodeWaveTech. All rights reserved.</span><span><a href="#home">Privacy policy</a><a href="#home">Terms of service</a><a href="https://codewavetech.in">codewavetech.in</a></span></div>
+</div></footer>
+</div>
+
+<!-- ================= BUILD PLAN ================= -->
+<div id="p-plan" hidden>
+  <div class="wrap plan">
+    <span class="eyebrow">Build plan · codewavetech.in</span>
+    <h1>How we'll build it</h1>
+    <p class="lead">A multipage company website that keeps the reference site's soft glow, rounded cards and dark pill buttons, structured like a professional IT services firm: split heroes with product visuals, a stats bar, left-aligned section headers, comparison blocks and a full corporate footer.</p>
+    <div class="plan-grid">
+      <div class="pcard wide">
+        <h3>Pages</h3>
+        <div class="tbl"><table>
+          <thead><tr><th>Page</th><th>Live URL</th><th>What's on it</th></tr></thead>
+          <tbody>
+            <tr><td><a href="#home">Home</a></td><td>/</td><td>Split hero with dashboard + phone mockup, stats bar, tech strip, 3 entry cards, "why us" comparison, 6 core services, process stepper, government band, industries, testimonials, consultation band, FAQ</td></tr>
+            <tr><td><a href="#services">Services</a></td><td>/services</td><td>Header with key facts, filterable grid of all 14 service areas</td></tr>
+            <tr><td><a href="#service-web">Service detail ×12</a></td><td>/services/web-development …</td><td>One template: intro, key facts, what's included, popular industries, technologies, ideal for, quote button that pre-fills the contact form, previous/next</td></tr>
+            <tr><td><a href="#industries">Industries</a></td><td>/industries</td><td>9 industry cards with typical solutions and linked services</td></tr>
+            <tr><td><a href="#government">Government</a></td><td>/government-solutions</td><td>Compliance facts, audit band, portals, systems, integrations, standards, support</td></tr>
+            <tr><td><a href="#process">How we work</a></td><td>/how-we-work</td><td>Process stepper, 3 engagement models, process FAQ</td></tr>
+            <tr><td><a href="#about">About</a></td><td>/about</td><td>Story, 4 promises, leadership team (needs photos)</td></tr>
+            <tr><td><a href="#contact">Contact</a></td><td>/contact</td><td>3-step project brief, next steps, direct contact, FAQ</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="pcard">
+        <h3>Contact form</h3>
+        <ul>
+          <li>3 steps: project → details → contact, with a progress bar</li>
+          <li>Services, stage, budget (₹ ranges), timeline and channel as tap-to-select options</li>
+          <li>Inline validation for name, email, 10-digit Indian mobile and consent</li>
+          <li>Draft auto-saved in the browser</li>
+          <li>"Get a quote" on any service page pre-selects that service</li>
+          <li>Live site: email + Zoho CRM + WhatsApp alert, reCAPTCHA, reference number</li>
+        </ul>
+      </div>
+      <div class="pcard">
+        <h3>Tech stack</h3>
+        <dl class="kv">
+          <dt>Framework</dt><dd>Next.js 15 (App Router) + TypeScript</dd>
+          <dt>Styling</dt><dd>Tailwind CSS with this preview's design tokens</dd>
+          <dt>Motion</dt><dd>Framer Motion</dd>
+          <dt>CMS</dt><dd>Strapi or Sanity for services, industries, FAQs, blog</dd>
+          <dt>Forms</dt><dd>Server action → Resend email, Zoho CRM, WhatsApp API</dd>
+          <dt>Hosting</dt><dd>Vercel or AWS Mumbai, Cloudflare CDN</dd>
+          <dt>Analytics</dt><dd>GA4, Microsoft Clarity, Search Console</dd>
+        </dl>
+      </div>
+      <div class="pcard">
+        <h3>Shared components</h3>
+        <ul>
+          <li>TopBar, PillNav with MegaMenu, MobileMenu</li>
+          <li>PageHero with breadcrumbs and KeyFacts panel</li>
+          <li>SectionHeader (eyebrow, title, lead, action link)</li>
+          <li>StatBar, ProductMockup, ComparisonRow</li>
+          <li>ServiceCard, ServicePageTemplate, IndustryCard</li>
+          <li>ProcessStepper, TestimonialCarousel, FAQ</li>
+          <li>ProjectBriefForm, CTABand, Footer</li>
+        </ul>
+      </div>
+      <div class="pcard">
+        <h3>SEO, speed and accessibility</h3>
+        <ul>
+          <li>Static pages, Lighthouse target 95+ on mobile</li>
+          <li>Unique title and meta for every page</li>
+          <li>Schema.org Organization, Service, FAQ and Breadcrumb markup</li>
+          <li>WCAG AA contrast, keyboard navigation, reduced motion</li>
+          <li>Hindi version later via next-intl</li>
+        </ul>
+      </div>
+      <div class="pcard wide">
+        <h3>Build phases</h3>
+        <div class="phases">
+          <div class="ph"><b>Week 1</b><h4>Content &amp; design</h4><p>Final copy, real testimonials, logo; Figma for home, service and contact pages.</p></div>
+          <div class="ph"><b>Week 2</b><h4>Core pages</h4><p>Home, services index and the service template in Next.js.</p></div>
+          <div class="ph"><b>Week 3</b><h4>Remaining pages</h4><p>Service pages, industries, government, process, about.</p></div>
+          <div class="ph"><b>Week 4</b><h4>CMS &amp; contact</h4><p>CMS, brief form, CRM and WhatsApp alerts, analytics.</p></div>
+          <div class="ph"><b>Week 5</b><h4>QA &amp; launch</h4><p>Device testing, SEO, redirects, go-live on codewavetech.in.</p></div>
+        </div>
+      </div>
+      <div class="pcard wide">
+        <h3>What I need from you</h3>
+        <ul>
+          <li>Logo files (the wave mark is a placeholder)</li>
+          <li>Real phone/WhatsApp number, email and office address</li>
+          <li>3–6 real client testimonials and permission to show client logos</li>
+          <li>Team photos and short bios for the About page</li>
+          <li>2–4 case studies with screenshots</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="switch" aria-label="View">
+  <a href="#home" id="v-site" aria-current="true">Website preview</a>
+  <a href="#plan" id="v-plan" aria-current="false">Build plan</a>
+</nav>
+
+<script>
+const S = [
+ {k:"web",cat:"core",t:"Web Development",d:"Business websites, web apps, portals, PWAs and APIs.",intro:"Fast, secure websites and web applications, from a simple company site to customer, vendor and student portals.",ideal:"Businesses that need a stronger online presence or want to move a manual process online.",tech:["React","Next.js","Vue","Angular","Node.js","Laravel","Django",".NET","WordPress","Strapi"],ic:'<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/>',items:["Business / corporate websites","Custom web application development","Landing pages and single-page sites","WordPress development (themes, plugins, customization)","CMS development (WordPress, Strapi, headless CMS)","Frontend development (React, Next.js, Vue, Angular)","Backend development (Node.js, PHP/Laravel, Python/Django, .NET)","Progressive Web Apps (PWA)","Portal development (customer, vendor, employee, student portals)","API development and third-party integration","Website redesign and revamp","Website speed optimization"]},
+ {k:"mobile",cat:"core",t:"Mobile App Development",d:"Android, iOS and cross-platform apps, published and maintained.",intro:"Native and cross-platform apps your customers and staff will actually use, published to the Play Store and App Store.",ideal:"Delivery, booking and service businesses, and companies that want an app for field staff.",tech:["Kotlin","Swift","Flutter","React Native","Firebase"],ic:'<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>',items:["Android app development (Kotlin/Java)","iOS app development (Swift)","Cross-platform apps (Flutter, React Native)","On-demand apps (food delivery, taxi, services booking)","Mobile app UI/UX design","App Store and Play Store publishing","App maintenance and version upgrades"]},
+ {k:"ecom",cat:"core",t:"E-Commerce Solutions",d:"Stores, marketplaces, payments and shipping integrations.",intro:"Online stores and marketplaces with Indian payments and shipping built in, from a Shopify store to a multi-vendor platform.",ideal:"D2C brands, retailers, wholesalers and grocery or quick-commerce businesses.",tech:["Shopify","WooCommerce","Next.js","Razorpay","PayU","Stripe","UPI","Shiprocket","Delhivery"],ic:'<path d="M3 4h2l2 11h11l2-8H6"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>',items:["Custom e-commerce website development","Shopify store setup and customization","WooCommerce development","Multi-vendor marketplace (Amazon / Flipkart model)","B2B e-commerce portals","E-commerce mobile apps","Payment gateway integration (Razorpay, PayU, Stripe, UPI)","Shipping and logistics integration (Shiprocket, Delhivery)","Product catalog and inventory management","Quick commerce / grocery delivery platforms"]},
+ {k:"ai",cat:"core",t:"AI and Automation",d:"Chatbots, AI agents, computer vision and workflow automation.",intro:"Practical AI that saves your team hours: chatbots on WhatsApp, document reading, voice bots and automated workflows.",ideal:"Teams that answer the same questions daily or move data between apps by hand.",tech:["OpenAI","Claude","LangChain","Python","TensorFlow","n8n","Zapier","Make"],ic:'<rect x="5" y="7" width="14" height="12" rx="3"/><path d="M12 3v4M9 12h.01M15 12h.01M9 16h6"/>',items:["AI chatbot development (website, WhatsApp, Telegram)","Generative AI and LLM integration (custom AI assistants)","AI agents and workflow automation","Machine learning model development","Computer vision (face recognition, object detection, OCR)","Natural language processing (text analysis, sentiment, document processing)","AI voice assistants and call bots","Recommendation engines (e-commerce and content)","Predictive analytics","Business process automation (RPA, Zapier / n8n / Make workflows)"]},
+ {k:"pos",cat:"core",t:"POS and Business Software",d:"POS, GST billing, ERP, CRM, HRMS and management systems.",intro:"Billing, inventory and management software that fits how your business runs, with GST built in.",ideal:"Restaurants, shops, clinics, schools, hotels, gyms and salons.",tech:["Odoo","Zoho","Salesforce","Laravel","React","PostgreSQL"],ic:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h5"/>',items:["Retail POS software","Restaurant POS and billing (KOT, table management)","Inventory and stock management","GST billing and invoicing software","ERP development (custom and Odoo)","CRM development (custom, Zoho, Salesforce setup)","HRMS and payroll software","School / college management system","Hospital / clinic management system","Hotel booking and property management system","Gym, salon and spa management software"]},
+ {k:"cloud",cat:"core",t:"Cloud, Hosting and DevOps",d:"Hosting, domains, business email, cloud migration and DevOps.",intro:"Reliable hosting, business email and cloud infrastructure, set up properly and monitored around the clock.",ideal:"Businesses moving off old servers or tired of downtime and expired SSL certificates.",tech:["AWS","Azure","Google Cloud","Docker","Kubernetes","GitHub Actions","Google Workspace","Microsoft 365"],ic:'<path d="M7 18a4 4 0 010-8 6 6 0 0111.5 2A3.5 3.5 0 0118 18z"/>',items:["Shared, VPS and dedicated hosting","Domain registration and management","Business email setup (Google Workspace, Microsoft 365, Zoho Mail)","Cloud setup and migration (AWS, Azure, Google Cloud)","Managed cloud services","DevOps and CI/CD pipeline setup","Server management and monitoring","SSL certificate setup","Backup and disaster recovery","Docker and Kubernetes deployment"]},
+ {k:"ux",cat:"more",t:"UI/UX and Branding",d:"Figma prototypes, design systems, logos and creatives.",intro:"Design that makes your product easy to use and your brand easy to remember.",ideal:"Startups preparing to launch and businesses refreshing an outdated look.",tech:["Figma","Adobe Illustrator","Photoshop","Maze"],ic:'<circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="15.5" cy="10" r="1"/>',items:["UI/UX design for web and mobile","Wireframing and prototyping (Figma)","Logo and brand identity design","Design systems","Graphic design (social media creatives, brochures, banners)","Usability testing and UX audits"]},
+ {k:"saas",cat:"more",t:"Custom Software and SaaS",d:"MVPs, SaaS products, desktop apps and legacy modernisation.",intro:"Custom software and SaaS products built from idea to launch, plus modern rebuilds of old systems.",ideal:"Founders validating an idea and companies stuck on legacy software.",tech:["Next.js","Node.js","Python","Electron",".NET","PostgreSQL"],ic:'<path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/>',items:["Custom software development","SaaS product development (idea to launch)","MVP development for startups","Desktop application development","Legacy software modernization","Dashboard and admin panel development"]},
+ {k:"data",cat:"more",t:"Data and Analytics",d:"Power BI and Tableau dashboards, databases and migration.",intro:"Turn scattered spreadsheets into dashboards that show what's working and what isn't.",ideal:"Owners and managers who make decisions from monthly Excel exports.",tech:["Power BI","Tableau","SQL Server","PostgreSQL","Python"],ic:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',items:["Data analytics and reporting","Power BI / Tableau dashboards","Database design and management","Data migration","Web scraping and data extraction"]},
+ {k:"sec",cat:"more",t:"Cybersecurity and Testing",d:"Security audits, malware cleanup, QA and load testing.",intro:"Find and fix security gaps before attackers do, and test software properly before it reaches customers.",ideal:"Sites that have been hacked, and products preparing for launch or audit.",tech:["OWASP ZAP","Burp Suite","Selenium","Playwright","JMeter"],ic:'<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/>',items:["Website security audit","Malware removal and website recovery","Software testing and QA (manual and automated)","Performance and load testing","Security hardening for servers and apps"]},
+ {k:"amc",cat:"more",t:"Maintenance and Support",d:"AMC, bug fixes, 24/7 support and dedicated developers.",intro:"Keep your website, app and software secure and up to date, or add our developers to your team.",ideal:"Anyone whose original developer is no longer available.",tech:["Uptime monitoring","Automated backups","Jira","Slack"],ic:'<path d="M14.7 6.3a4 4 0 00-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 005.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/>',items:["Annual maintenance contracts (AMC)","Website and app maintenance","Bug fixing and updates","24/7 technical support","Hire dedicated developers (hourly / monthly)"]},
+ {k:"emerg",cat:"more",t:"Emerging Technologies",d:"IoT, blockchain, AR/VR and wearable apps.",intro:"IoT, blockchain and AR/VR projects, scoped so they solve a real business problem.",ideal:"Manufacturers, logistics companies and brands exploring new experiences.",tech:["ESP32","MQTT","Solidity","Unity","WebXR","Wear OS"],ic:'<circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3"/>',items:["IoT solutions","Blockchain and smart contract development","AR/VR applications","Wearable app development"]},
+ {k:"gov",cat:"gov",t:"Government and e-Governance",d:"Citizen portals, e-Office, land records, GIGW 3.0 compliance.",link:"government",ic:'<path d="M3 21h18M5 21V10M19 21V10M9 21V10M15 21V10M2 10l10-6 10 6z"/>',groups:{"Portals and websites":["Government department and ministry websites","Municipal corporation and Gram Panchayat portals","State and district administration portals","Citizen service portals (applications, certificates, licenses, permits)","Grievance redressal and complaint management portals","Scheme and beneficiary management portals","Tender and e-procurement portals","Recruitment and online examination portals","Public information dashboards and open data portals","Police, transport and utility department portals"],"Government software systems":["e-Office and file tracking systems","Land records and property tax systems","Birth, death and marriage registration systems","Water, electricity and utility billing systems","Asset and inventory management for departments","Attendance and workforce management for government staff","Field survey and inspection mobile apps","GIS mapping and geo-tagging solutions","MIS reporting and monitoring dashboards for officials"],"Integrations":["Aadhaar-based eKYC and authentication","DigiLocker integration","e-Sign (digital signatures)","Government payment gateways (PayGov, SBI ePay, BharatKosh)","SMS gateway and OTP services","API Setu and inter-department data exchange","UPI and online fee collection"],"Compliance and standards":["GIGW 3.0 compliant website development","WCAG accessibility compliance (screen readers, font resize, contrast)","Bilingual and multilingual websites (Hindi, English, regional languages)","STQC certification support","CERT-In empanelled security audit support","Hosting on NIC, MeghRaj (GI Cloud) or state data centers","Data privacy aligned with the DPDP Act"],"Support services":["Annual maintenance for government portals","Content updates and helpdesk support","Training for department staff","Migration and modernization of old government portals"]}},
+ {k:"ind",cat:"gov",t:"Industry Solutions",d:"Ready-made know-how for 9 industries, from retail to manufacturing.",link:"industries",ic:'<path d="M3 21V9l6 4V9l6 4V5h6v16z"/>',items:["x","x","x","x","x","x","x","x","x"]}
+];
+const I=[
+ {n:"Government & public sector",s:"Portals, e-Office",d:"Citizen services and internal systems for departments at every level.",ex:["Citizen service and grievance portals","e-Office and file tracking","MIS dashboards for officials"],svc:["gov","web","data"]},
+ {n:"Restaurants & cloud kitchens",s:"POS, KOT, ordering",d:"Billing, kitchen orders and online ordering that work together.",ex:["Restaurant POS with KOT and tables","Own online ordering site and app","WhatsApp ordering bot"],svc:["pos","ecom","ai"]},
+ {n:"Retail & supermarkets",s:"POS, inventory",d:"Faster checkout, accurate stock and an online store that syncs.",ex:["Retail POS with barcode billing","Multi-store inventory","Quick-commerce delivery app"],svc:["pos","ecom","data"]},
+ {n:"Healthcare & clinics",s:"Clinic management",d:"Appointments, patient records and billing in one place.",ex:["Clinic and hospital management system","Patient booking app","Secure cloud hosting and backups"],svc:["pos","mobile","cloud"]},
+ {n:"Education & coaching",s:"School ERP, portals",d:"Admissions, fees, attendance and online learning.",ex:["School / college management system","Student and parent portal","Online exam platform"],svc:["pos","web","mobile"]},
+ {n:"Real estate",s:"Listings, CRM",d:"Generate leads and follow them up without losing any.",ex:["Property listing website","Lead CRM with site-visit tracking","AI chatbot for enquiries"],svc:["web","pos","ai"]},
+ {n:"Travel & tourism",s:"Booking engines",d:"Sell tours and stays online with instant confirmation.",ex:["Tour and hotel booking engine","Hotel property management","Itinerary app for travellers"],svc:["web","ecom","mobile"]},
+ {n:"Logistics & transport",s:"Fleet, tracking",d:"Track vehicles, drivers and deliveries in real time.",ex:["Driver and delivery tracking app","Fleet management dashboard","Shiprocket / Delhivery integrations"],svc:["mobile","data","emerg"]},
+ {n:"Manufacturing",s:"ERP, IoT",d:"Connect the shop floor to the office.",ex:["Custom ERP or Odoo setup","IoT machine monitoring","Production analytics dashboards"],svc:["pos","emerg","data"]}
+];
+const FAQ={
+ general:[["What happens in the free consultation?","We talk through your business, the problem you want to solve and your budget. You leave with a recommended approach, a rough timeline and a cost range."],["How much does a website or app cost?","It depends on scope. You get a written, itemised estimate after the discovery call, before any work begins."],["Do you work with government departments?","Yes. We build GIGW 3.0 compliant portals with Aadhaar eKYC, DigiLocker, e-Sign and government payment gateways, and support STQC and CERT-In audits."],["Who owns the code after launch?","You do. Source code, design files and admin access are handed over at launch."],["Do you offer support after launch?","Yes, through annual maintenance contracts covering updates, bug fixes, backups, monitoring and 24/7 technical support."]],
+ process:[["How often will I see progress?","Every week. Each sprint ends with a demo link you can open on your phone."],["What if I want changes midway?","Small changes fit into the next sprint. Larger ones get a short written change estimate before we start."],["How are payments structured?","Fixed projects are paid in milestones, usually 30% at start and the rest across delivery. Dedicated developers are billed monthly."]],
+ contact:[["Is the consultation really free?","Yes. There's no charge and no obligation to continue."],["Can you sign an NDA?","Yes. Mention it in your brief and we'll send one before the call."],["I don't know exactly what I need. Should I still write?","Yes. Choose \"Just an idea\" in step 1 and describe the problem. Working out the right solution is part of the call."]]
+};
+const Q=[
+ {n:"Restaurant owner",r:"3-outlet chain, Pune",q:"Our KOT and billing now run on one system, and month-end GST filing takes an hour instead of a day."},
+ {n:"Retail founder",r:"D2C brand",q:"They moved us from a slow WordPress store to a fast custom site with Razorpay and Shiprocket built in."},
+ {n:"Department official",r:"Municipal corporation",q:"The citizen portal went live bilingual and GIGW compliant, and complaints are now tracked end to end."},
+ {n:"Clinic director",r:"Multi-speciality clinic",q:"Appointments, billing and patient records finally live in one place our staff actually enjoy using."}
+];
+const $=id=>document.getElementById(id);
+const svg=(p,s=22)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const href=s=>"#"+(s.link||"service-"+s.k);
+const count=s=>s.k==="ind"?9:s.items?s.items.length:Object.values(s.groups).flat().length;
+const arrow='<span class="knob"><svg width="16" height="16"><use href="#arr"/></svg></span>';
+const tick=(s=14)=>`<svg width="${s}" height="${s}"><use href="#chk"/></svg>`;
+const detailList=S.filter(s=>!s.link);
+const IIC=[
+ '<path d="M3 21h18M5 21V10M19 21V10M9 21V10M15 21V10M2 10l10-6 10 6z"/>',
+ '<path d="M4 3v8a3 3 0 006 0V3M7 3v18M17 3c-2 0-3 3-3 6s1 4 3 4v8"/>',
+ '<path d="M3 4h2l2 11h11l2-8H6"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>',
+ '<path d="M12 6v12M6 12h12"/><rect x="3" y="3" width="18" height="18" rx="4"/>',
+ '<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/>',
+ '<path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/>',
+ '<path d="M2 16l20-8-6 12-3-5z"/><path d="M13 15l-4 4"/>',
+ '<rect x="2" y="7" width="13" height="10" rx="1"/><path d="M15 10h4l3 3v4h-7"/><circle cx="6" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/>',
+ '<path d="M3 21V9l6 4V9l6 4V5h6v16z"/>'
+];
+I.forEach((x,i)=>x.ic=IIC[i]);
+
+/* static renders */
+const stack=["React","Next.js","Flutter","Node.js","Laravel","Django",".NET","Shopify","WooCommerce","Odoo","AWS","Azure","Google Cloud","Docker","Kubernetes","Power BI","Figma","n8n"];
+$("stack").innerHTML=[...stack,...stack].map(c=>`<span>${c}</span>`).join("");
+$("mega-core").innerHTML=S.filter(s=>s.cat==="core").map(s=>`<li><a href="${href(s)}"><span class="mi">${svg(s.ic,18)}</span><span>${s.t}<small>${s.d}</small></span></a></li>`).join("");
+$("mega-more").innerHTML=S.filter(s=>s.cat==="more").map(s=>`<li><a href="${href(s)}" style="padding:7px 10px">${s.t}</a></li>`).join("");
+const short=t=>t.replace(/ (Development|Solutions|and DevOps)$/,"").replace(", Hosting"," & Hosting").replace(" and "," & ");
+$("foot-svc").innerHTML=S.filter(s=>s.cat==="core").map(s=>`<li><a href="${href(s)}">${short(s.t)}</a></li>`).join("");
+$("foot-ind").innerHTML=I.slice(0,6).map(i=>`<li><a href="#industries">${i.n.split(" & ")[0]}</a></li>`).join("");
+$("mobile-menu").innerHTML=`<a href="#home">Home</a><a href="#services">Services</a>${S.filter(s=>s.cat==="core").map(s=>`<a class="sub" href="${href(s)}">${s.t}</a>`).join("")}<a href="#industries">Industries</a><a href="#government">Government</a><a href="#process">How we work</a><a href="#about">About</a><a href="#contact">Contact</a>`;
+const card=s=>`<a class="svc" href="${href(s)}"><div class="top"><span class="ic">${svg(s.ic)}</span><span class="go"><svg width="14" height="14"><use href="#ne"/></svg></span></div><h3>${s.t}</h3><p>${s.d}</p><span class="meta">${count(s)} ${s.k==="ind"?"industries":"offerings"}</span></a>`;
+$("home-svc").innerHTML=S.filter(s=>s.cat==="core").map(card).join("");
+const tabs=[["all","All"],["core","Core"],["more","Specialist"],["gov","Government & industries"]];
+let filter="all";
+function renderServices(){
+  $("tabs").innerHTML=tabs.map(([k,l])=>`<button data-f="${k}" aria-pressed="${k===filter}">${l}</button>`).join("");
+  $("svc-grid").innerHTML=S.filter(s=>filter==="all"||s.cat===filter).map(card).join("");
+}
+$("tabs").onclick=e=>{const b=e.target.closest("button");if(b){filter=b.dataset.f;renderServices();}};
+renderServices();
+const indTile=i=>`<a href="#industries"><span class="ii">${svg(i.ic,20)}</span><span><b>${i.n}</b><small>${i.s}</small></span></a>`;
+$("home-ind").innerHTML=I.map(indTile).join("");
+$("ind-full").innerHTML=I.map(i=>`<article class="indcard"><span class="ii">${svg(i.ic)}</span><h3>${i.n}</h3><p>${i.d}</p><ul>${i.ex.map(x=>`<li>${tick(13)}${x}</li>`).join("")}</ul><div class="tags">${i.svc.map(k=>{const s=S.find(x=>x.k===k);return `<a href="${href(s)}">${short(s.t)}</a>`}).join("")}</div></article>`).join("");
+const compHTML=`<span class="k">GIGW 3.0</span><span class="k">WCAG accessibility</span><span class="k">STQC support</span><span class="k">CERT-In audit support</span><span class="k">DPDP Act aligned</span><span>Aadhaar eKYC</span><span>DigiLocker</span><span>e-Sign</span><span>PayGov</span><span>SBI ePay</span><span>BharatKosh</span><span>API Setu</span><span>UPI fee collection</span><span>NIC hosting</span><span>MeghRaj (GI Cloud)</span><span>State data centres</span><span>Hindi · English · regional</span>`;
+document.querySelectorAll("[data-comp]").forEach(el=>el.innerHTML=compHTML);
+const g=S.find(s=>s.k==="gov").groups;
+$("gov-groups").innerHTML=Object.entries(g).map(([h,a],i)=>`<div class="box${i<2?" span":""}"><div class="gh"><h4>${h}</h4><span>${a.length} items</span></div><ul>${a.map(x=>`<li>${tick(14)}${x}</li>`).join("")}</ul></div>`).join("");
+document.querySelectorAll("[data-faq]").forEach(el=>el.innerHTML=FAQ[el.dataset.faq].map(([q,a],i)=>`<details${i===0?" open":""}><summary>${q}<i>+</i></summary><p>${a}</p></details>`).join(""));
+
+/* testimonials */
+const qt=$("qtrack");
+qt.innerHTML=Q.map(q=>`<article class="q"><span class="tag">Sample, replace with a real quote</span><blockquote>"${q.q}"</blockquote><div class="who"><span class="av">${q.n[0]}</span><span><b>${q.n}</b><small>${q.r}</small></span></div></article>`).join("");
+const qstep=()=>qt.querySelector(".q").offsetWidth+20;
+$("qnext").onclick=()=>qt.scrollBy({left:qstep(),behavior:"smooth"});
+$("qprev").onclick=()=>qt.scrollBy({left:-qstep(),behavior:"smooth"});
+
+/* process steppers */
+const P=[
+ {t:"Discovery call",s:"Goals, users and budget",d:"A 30-minute call to understand your business, who will use the software and what success looks like.",l:["Requirements summary","Recommended approach","Budget range"],dur:"Day 1"},
+ {t:"Plan & design",s:"Scope, wireframes, estimate",d:"We write the scope, design key screens in Figma and send a fixed, itemised estimate with milestones.",l:["Scope document","Clickable Figma prototype","Fixed quote and timeline"],dur:"1–2 weeks"},
+ {t:"Build & test",s:"Sprints with weekly demos",d:"Development in short sprints. You see working software every week and give feedback before the next sprint.",l:["Weekly demo link","Manual and automated QA","Security and speed checks"],dur:"2–12 weeks"},
+ {t:"Launch & support",s:"Go-live, AMC, monitoring",d:"We deploy, publish to stores where needed, train your team and keep everything updated under an AMC.",l:["Deployment and SSL","Staff training","Ongoing maintenance"],dur:"Ongoing"}
+];
+document.querySelectorAll("[data-stepper]").forEach(root=>{
+  let cur=0;
+  root.innerHTML=`<div class="steps" role="tablist"></div><div class="stage" aria-live="polite"></div>`;
+  const stage=root.querySelector(".stage"),steps=root.querySelector(".steps");
+  const draw=()=>{
+    steps.innerHTML=P.map((p,i)=>`<button class="step" role="tab" aria-selected="${i===cur}" data-i="${i}"><b>0${i+1}</b><span><h4>${p.t}</h4><p>${p.s}</p></span></button>`).join("");
+    const p=P[cur];
+    stage.innerHTML=`<span class="num">STEP 0${cur+1} / 04</span><h3>${p.t}</h3><p>${p.d}</p><ul>${p.l.map(x=>`<li>${tick(16)}${x}</li>`).join("")}</ul><span class="dur">Typical duration · ${p.dur}</span>`;
+  };
+  steps.onclick=e=>{const b=e.target.closest(".step");if(b){cur=+b.dataset.i;draw();}};
+  draw();
+});
+
+/* service detail */
+function renderService(k){
+  const i=detailList.findIndex(s=>s.k===k); if(i<0) return false;
+  const s=detailList[i],prev=detailList[(i-1+detailList.length)%detailList.length],next=detailList[(i+1)%detailList.length];
+  const inds=I.filter(x=>x.svc.includes(k));
+  $("p-service").innerHTML=`
+  <header class="phero"><div class="wrap">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span>/</span><a href="#services">Services</a><span>/</span><span>${s.t}</span></nav>
+      <div class="ic-big">${svg(s.ic,26)}</div>
+      <h1>${s.t}</h1>
+      <p class="lead">${s.intro}</p>
+      <div class="cta-row"><a class="btn" href="#contact" data-quote="${s.k}">Get a quote ${arrow}</a><a class="btn-ghost" href="#process">How we work</a></div>
+    </div>
+    <div class="facts"><div><span>Offerings</span><b>${s.items.length}</b></div><div><span>Category</span><b>${s.cat==="core"?"Core service":"Specialist service"}</b></div><div><span>Consultation</span><b>Free, 30 min</b></div><div><span>After launch</span><b>AMC available</b></div></div>
+  </div></header>
+  <div class="wrap">
+    <div class="detail">
+      <div>
+        <h2 class="sub-h">What's included</h2>
+        <div class="offer">${s.items.map(x=>`<div>${tick(16)}${x}</div>`).join("")}</div>
+        ${inds.length?`<h2 class="sub-h">Popular with</h2><div class="ind" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">${inds.map(indTile).join("")}</div>`:""}
+      </div>
+      <aside class="side">
+        <div class="box"><h4>Ideal for</h4><p>${s.ideal}</p></div>
+        <div class="box"><h4>Technologies</h4><div class="tags">${s.tech.map(t=>`<span>${t}</span>`).join("")}</div></div>
+        <div class="box accent"><h4>Free 30-minute consultation</h4><p>Get a recommended approach, timeline and budget range.</p><a class="btn" href="#contact" data-quote="${s.k}" style="justify-self:start">Start a brief ${arrow}</a></div>
+      </aside>
+    </div>
+    <div class="pager"><a href="#service-${prev.k}"><small>← Previous</small><b>${prev.t}</b></a><a href="#service-${next.k}"><small>Next →</small><b>${next.t}</b></a></div>
+  </div>`;
+  return true;
+}
+/* ---------- contact form ---------- */
+const STAGES=[["idea","Just an idea","Exploring options"],["plan","Planned","Know what we need"],["exists","Have something","Improve or rebuild"]];
+const BUDGETS=["Under ₹50k","₹50k – 2L","₹2L – 5L","₹5L – 15L","₹15L+","Not sure yet"];
+const TIMES=["ASAP","1–3 months","3–6 months","Flexible"];
+const VIA=["WhatsApp","Phone call","Email"];
+const opt=(name,val,label,type="radio",sub)=>`<label class="opt${sub?" tile":""}"><input type="${type}" name="${name}" value="${val}"><span>${label}${sub?`<small>${sub}</small>`:""}</span></label>`;
+$("svc-opts").innerHTML=[...detailList.map(s=>[s.k,s.t.replace(/ (Development|Solutions|and DevOps)$/,"").replace(", Hosting"," & Hosting")]),["gov","Government portal"],["other","Something else"]].map(([v,l])=>opt("svc",v,l,"checkbox")).join("");
+$("stage-opts").innerHTML=STAGES.map(([v,l,s])=>opt("stage",v,l,"radio",s)).join("");
+$("budget-opts").innerHTML=BUDGETS.map(b=>opt("budget",b,b)).join("");
+$("time-opts").innerHTML=TIMES.map(b=>opt("time",b,b)).join("");
+$("via-opts").innerHTML=VIA.map(b=>opt("via",b,b)).join("");
+document.querySelector('input[name="via"][value="WhatsApp"]').checked=true;
+document.querySelector('input[name="time"][value="Flexible"]').checked=true;
+
+const form=$("brief");let step=1;
+const vals=n=>[...form.querySelectorAll(`input[name="${n}"]:checked`)].map(i=>i.value);
+const labelOf=(n,v)=>form.querySelector(`input[name="${n}"][value="${CSS.escape(v)}"]`)?.nextElementSibling.firstChild.textContent;
+function setErr(id,on){$("e-"+id).hidden=!on;$("f-"+id).classList.toggle("bad",on);}
+function validate(n){
+  let ok=true;const bad=(id,c)=>{setErr(id,c);if(c&&ok){ok=false;const f=$("f-"+id).querySelector("input,textarea");f&&f.focus();}};
+  if(n===1){bad("services",!vals("svc").length);bad("stage",!vals("stage").length);}
+  if(n===2){bad("budget",!vals("budget").length);}
+  if(n===3){
+    bad("name",!$("name").value.trim());
+    bad("email",!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($("email").value.trim()));
+    bad("phone",!/^[6-9]\d{9}$/.test($("phone").value.replace(/\D/g,"")));
+    bad("consent",!$("consent").checked);
+  }
+  return ok;
+}
+function showStep(n){
+  step=n;form.querySelectorAll(".fstep").forEach(f=>f.hidden=+f.dataset.step!==n);
+  [...$("prog").children].forEach((d,i)=>{d.className=i+1<n?"done":i+1===n?"cur":"";});
+  $("back").hidden=n===1;
+  $("next").innerHTML=(n===3?"Send my brief ":"Continue ")+arrow;
+}
+form.addEventListener("submit",e=>{
+  e.preventDefault();
+  if(!validate(step)) return;
+  if(step<3){showStep(step+1);form.scrollIntoView({block:"start",behavior:"smooth"});return;}
+  finish();
+});
+$("back").onclick=()=>showStep(step-1);
+form.addEventListener("change",e=>{const n=e.target.name;if(n==="svc")setErr("services",false);if(n==="stage")setErr("stage",false);if(n==="budget")setErr("budget",false);if(e.target.id==="consent")setErr("consent",false);save();});
+form.addEventListener("input",e=>{const id=e.target.id;if(["name","email","phone"].includes(id))setErr(id,false);if(id==="msg")$("msg-count").textContent=`${e.target.value.length} / 1000`;save();});
+$("phone").addEventListener("input",e=>{let d=e.target.value.replace(/\D/g,"").slice(0,10);e.target.value=d.length>5?d.slice(0,5)+" "+d.slice(5):d;});
+
+/* draft autosave (per browser) */
+const KEY="cwt-brief";let saveT;
+function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{
+  localStorage.setItem(KEY,JSON.stringify({svc:vals("svc"),stage:vals("stage"),budget:vals("budget"),time:vals("time"),via:vals("via"),msg:$("msg").value,link:$("ref-link").value,name:$("name").value,company:$("company").value,email:$("email").value,phone:$("phone").value,when:$("when").value}));
+  $("saved").textContent="Draft saved";}catch(_){}},400);}
+function restore(){try{const d=JSON.parse(localStorage.getItem(KEY)||"null");if(!d)return;
+  ["svc","stage","budget","time","via"].forEach(n=>{if(d[n]&&d[n].length){form.querySelectorAll(`input[name="${n}"]`).forEach(i=>i.checked=d[n].includes(i.value));}});
+  ["msg","name","company","email","phone","when"].forEach(k=>{if(d[k])$(k).value=d[k];});if(d.link)$("ref-link").value=d.link;
+  $("msg-count").textContent=`${$("msg").value.length} / 1000`;$("saved").textContent="Draft restored";}catch(_){}}
+restore();
+
+function finish(){
+  const ref="CWT-"+new Date().toISOString().slice(2,10).replace(/-/g,"")+"-"+Math.floor(1000+Math.random()*9000);
+  const rows=[["Reference",ref],["Services",vals("svc").map(v=>labelOf("svc",v)).join(", ")],["Stage",labelOf("stage",vals("stage")[0])],["Budget",vals("budget")[0]],["Launch",vals("time")[0]||"Flexible"],["Name",$("name").value.trim()+($("company").value.trim()?" · "+$("company").value.trim():"")],["Email",$("email").value.trim()],["Mobile","+91 "+$("phone").value],["Contact via",vals("via")[0]+" · "+$("when").value]];
+  if($("msg").value.trim())rows.push(["Project",$("msg").value.trim()]);
+  const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  $("done").innerHTML=`<span class="big">${svg('<path d="M6 12.5l4 4 8-9"/>',34)}</span><h3>Thanks, ${esc($("name").value.trim().split(" ")[0])}. Your brief is ready.</h3><p style="color:var(--ink-2)">We'll reach you on ${esc(vals("via")[0])} within one business day.</p><span class="ref">${ref}</span>
+  <dl class="summary">${rows.slice(1).map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+  <p class="note">Preview only: nothing was sent. On the live site this brief goes to your inbox, Zoho CRM and a WhatsApp alert.</p>
+  <button class="btn-ghost" id="again">Start another brief</button>`;
+  $("form-area").hidden=true;$("done").hidden=false;
+  try{localStorage.removeItem(KEY);}catch(_){}
+  $("again").onclick=()=>{form.reset();document.querySelector('input[name="via"][value="WhatsApp"]').checked=true;document.querySelector('input[name="time"][value="Flexible"]').checked=true;$("msg-count").textContent="0 / 1000";$("saved").textContent="";$("done").hidden=true;$("form-area").hidden=false;showStep(1);};
+}
+showStep(1);
+let preselect=null;
+document.addEventListener("click",e=>{const q=e.target.closest("[data-quote]");if(q)preselect=q.dataset.quote;});
+document.querySelectorAll(".copy").forEach(b=>b.onclick=()=>{const el=$(b.dataset.copy);const t=el.textContent;
+  navigator.clipboard.writeText(t).then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1500);}).catch(()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);});});
+
+/* ---------- nav menus ---------- */
+const svcBtn=$("svc-btn"),mega=$("mega"),burger=$("burger"),mm=$("mobile-menu");
+svcBtn.onclick=e=>{e.stopPropagation();mega.hidden=!mega.hidden;svcBtn.setAttribute("aria-expanded",!mega.hidden);};
+burger.onclick=()=>{mm.hidden=!mm.hidden;burger.setAttribute("aria-expanded",!mm.hidden);};
+document.addEventListener("click",e=>{if(!mega.contains(e.target)&&e.target!==svcBtn){mega.hidden=true;svcBtn.setAttribute("aria-expanded","false");}if(e.target.closest("#mobile-menu a")){mm.hidden=true;}if(e.target.closest("#mega a"))mega.hidden=true;});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){mega.hidden=true;mm.hidden=true;}});
+
+/* ---------- router ---------- */
+const PAGES=["home","services","industries","government","process","about","contact"];
+function route(){
+  let h=decodeURIComponent(location.hash.slice(1))||"home";
+  const isPlan=h==="plan";
+  $("site").hidden=isPlan;$("p-plan").hidden=!isPlan;
+  $("v-site").setAttribute("aria-current",!isPlan);$("v-plan").setAttribute("aria-current",isPlan);
+  if(!isPlan){
+    let page=h;
+    if(h.startsWith("service-")){page=renderService(h.slice(8))?"service":"services";}
+    else if(!PAGES.includes(h)) page="home";
+    document.querySelectorAll("main>.page").forEach(p=>p.hidden=p.id!=="p-"+page);
+    $("final-cta").hidden=page==="contact";
+    const navKey=page==="service"?"services":page;
+    document.querySelectorAll("[data-nav]").forEach(a=>a.classList.toggle("on",a.dataset.nav===navKey));
+    if(page==="contact"&&preselect){const k=preselect;form.querySelectorAll('input[name="svc"]').forEach(i=>{if(i.value===k)i.checked=true;});preselect=null;save();}
+  }
+  mega.hidden=true;mm.hidden=true;
+  window.scrollTo(0,0);
+}
+addEventListener("hashchange",route);
+route();
+
+/* waves canvas */
+(function(){
+  const c=$("waves"),x=c.getContext("2d");let t=0;
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function draw(){
+    if(c.offsetWidth){
+      const w=c.width=c.offsetWidth*devicePixelRatio,h=c.height=c.offsetHeight*devicePixelRatio;
+      const col=getComputedStyle(document.documentElement).getPropertyValue("--glow").trim()||"#9FDCCB";
+      x.clearRect(0,0,w,h);x.lineWidth=1.5*devicePixelRatio;
+      for(let k=0;k<7;k++){x.beginPath();x.strokeStyle=col;x.globalAlpha=.15+k*.07;
+        for(let i=0;i<=w;i+=8){const y=h*.35+k*h*.09+Math.sin(i/w*6+t+k*.6)*h*.08;i?x.lineTo(i,y):x.moveTo(i,y);}x.stroke();}
+      t+=.01;
+    }
+    if(!reduce)requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+
+</body></html>
