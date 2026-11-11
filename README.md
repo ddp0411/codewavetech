@@ -72,6 +72,7 @@ All copy is typed data in `content/`. Edit the file and redeploy.
 | `content/process.ts`      | 4 process steps and 3 engagement models                                              |
 | `content/faq.ts`          | General, process and contact FAQs (also emitted as FAQPage JSON-LD)                  |
 | `content/testimonials.ts` | Testimonials                                                                         |
+| `content/legal.ts`        | Company name, address, grievance contact, jurisdiction, retention period             |
 | `content/contact.ts`      | Form options (budgets, timelines, channels, call times), "what happens next"         |
 
 Adding a service: append to `detailServices` with a unique `key` and `slug`. The page, sitemap, mega menu, footer and form chip update automatically. Icons are 24×24 stroke SVG path markup.
@@ -96,7 +97,7 @@ The source logo files live in `pics/`. `python scripts/brand_assets.py` (needs P
 - [ ] **Social profiles**: `content/site.ts` → `sameAs`
 - [ ] **Testimonials**: `content/testimonials.ts`. All 4 are samples. Replace each quote and set `sample: false` to remove the dashed "Sample" tag.
 - [ ] **"Now booking" pill**: `content/site.ts` → `bookingBadge` (currently "New projects for Q1 2027")
-- [ ] **Privacy policy / Terms**: `app/privacy/page.tsx`, `app/terms/page.tsx` contain placeholder summaries; replace with reviewed legal text
+- [ ] **Privacy policy / Terms**: drafted in `app/privacy/page.tsx` and `app/terms/page.tsx`; company details and the brief retention period are in `content/legal.ts`. Have a lawyer review both before launch.
 - [ ] **Open Graph image**: none yet. Add `app/opengraph-image.png` (1200×630) and Next.js will wire it up.
 
 ## Deploying to Vercel
