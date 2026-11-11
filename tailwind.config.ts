@@ -22,6 +22,7 @@ const config: Config = {
           soft: "var(--accent-soft)",
           on: "var(--on-accent)",
         },
+        gold: { DEFAULT: "var(--gold)", 2: "var(--gold-2)", on: "var(--on-gold)" },
         danger: "var(--danger)",
         "warn-soft": "var(--warn-soft)",
         btn: { DEFAULT: "var(--btn)", fg: "var(--btn-fg)", knob: "var(--btn-knob)" },

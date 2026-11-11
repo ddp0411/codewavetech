@@ -485,8 +485,8 @@ export function ProjectBriefForm({ recaptchaSiteKey }: { recaptchaSiteKey?: stri
                     aria-invalid={!!errors.consent || undefined}
                     {...register("consent")}
                   />{" "}
-                  I agree to be contacted about this request. CodeWaveTech will not share my details
-                  with anyone else.
+                  I agree to be contacted about this request. CodeWaveTech will only use my details
+                  to respond and will never sell them.
                 </label>
                 {errorText("consent")}
               </div>

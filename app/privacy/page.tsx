@@ -36,12 +36,16 @@ export default function PrivacyPage() {
               Details you enter in the project brief: name, company, email, mobile and project
               information.
             </li>
-            <li>Basic, anonymised usage data needed to keep the site fast and secure.</li>
+            <li>
+              Basic technical data, such as your IP address, used to keep the site secure and limit
+              spam.
+            </li>
           </ul>
           <h2>How we use it</h2>
           <p>
             Only to reply to your request, prepare a proposal and deliver the work you ask for. We
-            don&apos;t sell or share your details with anyone else.
+            don&apos;t sell your details. We share them only with the service providers that help us
+            receive and answer your request, such as our notification and hosting services.
           </p>
           <h2>Your choices</h2>
           <p>

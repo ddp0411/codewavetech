@@ -13,37 +13,41 @@
   :root {
     --bg: #f4f6f7;
     --surface: #ffffff;
-    --ink: #0e1a24;
-    --ink-2: #51606a;
-    --line: #e0e6e9;
-    --line-2: #edf1f2;
-    --glow: #9fdccb;
-    --glow-2: #f6cfa0;
-    --accent: #127a6a;
-    --accent-2: #0e6457;
-    --accent-soft: #e2f3ee;
+    --ink: #0a1b3c;
+    --ink-2: #515e75;
+    --line: #e0e5ec;
+    --line-2: #edf0f5;
+    --glow: #a9c3ec;
+    --glow-2: #f6d690;
+    --accent: #1b4080;
+    --accent-2: #15326a;
+    --accent-soft: #e4ebf7;
     --danger: #d9363e;
     --warn-soft: #fdedec;
-    --btn: #0e1a24;
+    --btn: #0a1b3c;
     --btn-fg: #ffffff;
-    --btn-knob: #2e3d48;
-    --deep: #0b1820;
-    --deep-fg: #eaf1f2;
-    --deep-2: #98a9b1;
-    --deep-line: #1f313b;
+    --btn-knob: #2a3f66;
+    --deep: #0a1b3c;
+    --deep-fg: #eef2f8;
+    --deep-2: #a3b1c9;
+    --deep-line: #22365c;
 
     /* Supporting tokens (not in the core table, kept here so no component hard-codes a colour) */
     --on-accent: #ffffff; /* text/icons placed on --accent */
-    --glow-text: #9fdccb; /* glow used as text/icons on --deep surfaces */
+    --glow-text: #f0be4e; /* brand gold used as text/icons on --deep surfaces */
+    --gold: #e4a82a; /* brand gold from the logo */
+    --gold-2: #c98f17; /* knob on gold buttons */
+    --on-gold: #0a1b3c; /* text/icons placed on gold */
+    --accent-warm: #a2750a; /* gold dark enough for large text on light surfaces */
+    --deep-glow: #2f5fb0; /* soft glow inside --deep panels */
     --on-danger: #ffffff;
-    --brand: #127a6a; /* fixed brand teal used in the footer logo */
     --whatsapp: #25a35a;
-    --shadow-rgb: 14, 26, 36;
-    --consult-from: #127a6a; /* consultation band gradient (fixed in both themes) */
-    --consult-to: #0b3f39;
+    --shadow-rgb: 10, 27, 60;
+    --consult-from: #1b4080; /* consultation band gradient (fixed in both themes) */
+    --consult-to: #0a1b3c;
     --consult-fg: #ffffff;
-    --consult-btn-fg: #0e1a24;
-    --consult-knob: #dce7e5;
+    --consult-btn-fg: #0a1b3c;
+    --consult-knob: #dde4f0;
 
     --display: var(--font-hanken), "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
     --body: var(--font-hanken), "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
@@ -57,55 +61,57 @@
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0b1317;
-      --surface: #121c22;
-      --ink: #eef3f4;
-      --ink-2: #a2b0b6;
-      --line: #24323a;
-      --line-2: #1a262d;
-      --glow: #1e5a50;
-      --glow-2: #5a3e22;
-      --accent: #5ccfb8;
-      --accent-2: #7fdcc8;
-      --accent-soft: #143832;
+      --bg: #08111f;
+      --surface: #101c30;
+      --ink: #eef2f8;
+      --ink-2: #a6b3c9;
+      --line: #25354f;
+      --line-2: #1a2840;
+      --glow: #1f3d70;
+      --glow-2: #5c4620;
+      --accent: #8fb2ee;
+      --accent-2: #b0caf4;
+      --accent-soft: #182c50;
       --danger: #ff6b6f;
       --warn-soft: #3a1c1e;
-      --btn: #eef3f4;
-      --btn-fg: #0b1317;
-      --btn-knob: #c8d3d7;
-      --deep: #070e12;
-      --deep-fg: #eaf1f2;
-      --deep-2: #8fa0a8;
-      --deep-line: #1a2830;
-      --on-accent: #0b1317;
-      --glow-text: #7fdcc8;
+      --btn: #eef2f8;
+      --btn-fg: #08111f;
+      --btn-knob: #c9d3e3;
+      --deep: #060e1c;
+      --deep-fg: #eef2f8;
+      --deep-2: #97a6bf;
+      --deep-line: #1b2a46;
+      --on-accent: #08111f;
+      --accent-warm: #f0be4e;
+      --deep-glow: #1f3d70;
       color-scheme: dark;
     }
   }
 
   :root[data-theme="dark"] {
-    --bg: #0b1317;
-    --surface: #121c22;
-    --ink: #eef3f4;
-    --ink-2: #a2b0b6;
-    --line: #24323a;
-    --line-2: #1a262d;
-    --glow: #1e5a50;
-    --glow-2: #5a3e22;
-    --accent: #5ccfb8;
-    --accent-2: #7fdcc8;
-    --accent-soft: #143832;
+    --bg: #08111f;
+    --surface: #101c30;
+    --ink: #eef2f8;
+    --ink-2: #a6b3c9;
+    --line: #25354f;
+    --line-2: #1a2840;
+    --glow: #1f3d70;
+    --glow-2: #5c4620;
+    --accent: #8fb2ee;
+    --accent-2: #b0caf4;
+    --accent-soft: #182c50;
     --danger: #ff6b6f;
     --warn-soft: #3a1c1e;
-    --btn: #eef3f4;
-    --btn-fg: #0b1317;
-    --btn-knob: #c8d3d7;
-    --deep: #070e12;
-    --deep-fg: #eaf1f2;
-    --deep-2: #8fa0a8;
-    --deep-line: #1a2830;
-    --on-accent: #0b1317;
-    --glow-text: #7fdcc8;
+    --btn: #eef2f8;
+    --btn-fg: #08111f;
+    --btn-knob: #c9d3e3;
+    --deep: #060e1c;
+    --deep-fg: #eef2f8;
+    --deep-2: #97a6bf;
+    --deep-line: #1b2a46;
+    --on-accent: #08111f;
+    --accent-warm: #f0be4e;
+    --deep-glow: #1f3d70;
     color-scheme: dark;
   }
 
@@ -268,14 +274,14 @@
     opacity: 0.8;
   }
   .btn.accent {
-    background: var(--accent);
-    color: var(--on-accent);
+    background: var(--gold);
+    color: var(--on-gold);
   }
   .btn.accent .knob {
-    background: var(--accent-2);
+    background: var(--gold-2);
   }
   .btn.accent .knob svg {
-    stroke: var(--on-accent);
+    stroke: var(--on-gold);
   }
   /* Light pill used on --deep surfaces (government band, dark boxes) */
   .btn.on-dark {
@@ -454,7 +460,7 @@
     right: 13px;
     bottom: -13px;
     height: 2px;
-    background: var(--accent);
+    background: var(--gold);
   }
   .nav-cta {
     display: flex;
@@ -695,7 +701,7 @@
   }
   .hero h1 em {
     font-style: normal;
-    color: var(--accent);
+    color: var(--accent-warm);
   }
   .hero .lead {
     font-size: clamp(17px, 1.4vw, 19px);
@@ -851,6 +857,7 @@
     border-radius: 5px 5px 0 0;
     background: color-mix(in srgb, var(--accent) 35%, var(--surface));
     transform-origin: bottom;
+    animation: grow 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
   .bars i:last-child {
     background: var(--accent);
@@ -1698,7 +1705,7 @@
     aspect-ratio: 1;
     background: radial-gradient(
       closest-side,
-      color-mix(in srgb, var(--accent) 40%, transparent),
+      color-mix(in srgb, var(--deep-glow) 45%, transparent),
       transparent
     );
     pointer-events: none;
@@ -1808,7 +1815,7 @@
     aspect-ratio: 1;
     background: radial-gradient(
       closest-side,
-      color-mix(in srgb, var(--accent) 40%, transparent),
+      color-mix(in srgb, var(--deep-glow) 45%, transparent),
       transparent
     );
     pointer-events: none;
@@ -1849,8 +1856,8 @@
     color: var(--deep-fg);
   }
   .comp li.k {
-    background: color-mix(in srgb, var(--accent) 22%, transparent);
-    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    background: color-mix(in srgb, var(--gold) 18%, transparent);
+    border-color: color-mix(in srgb, var(--gold) 45%, transparent);
   }
   .gov-stats {
     display: grid;
@@ -2132,7 +2139,7 @@
 
   /* ---------- Consultation band ---------- */
   .audit {
-    background: linear-gradient(135deg, #127a6a 0%, #0b3f39 100%);
+    background: linear-gradient(135deg, var(--consult-from) 0%, var(--consult-to) 100%);
     color: var(--consult-fg);
     border-radius: var(--r-band);
     padding: clamp(32px, 5vw, 56px);
@@ -2337,45 +2344,6 @@
   .collage code {
     font: 500 12px var(--mono);
     color: var(--accent);
-  }
-  .team {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .team li {
-    background: var(--surface);
-    border: 1px dashed var(--line);
-    border-radius: var(--r);
-    padding: 20px;
-    display: grid;
-    gap: 8px;
-    min-width: 0;
-  }
-  .team .ph {
-    aspect-ratio: 1;
-    border-radius: 14px;
-    background: var(--bg);
-    display: grid;
-    place-items: center;
-    color: var(--ink-2);
-    font: 500 12px var(--mono);
-    overflow: hidden;
-  }
-  .team .ph img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .team b {
-    font-size: 16px;
-  }
-  .team li > span {
-    color: var(--ink-2);
-    font-size: 14px;
   }
 
   /* ---------- Contact ---------- */
@@ -2695,13 +2663,6 @@
     border-radius: 999px;
     padding: 8px 16px;
   }
-  .note {
-    font-size: 13px;
-    color: var(--ink-2);
-    background: var(--accent-soft);
-    border-radius: 12px;
-    padding: 10px 14px;
-  }
   .aside {
     display: grid;
     gap: 14px;
@@ -2879,6 +2840,11 @@
     color: var(--deep-fg);
     font-weight: 600;
   }
+  .foot .ct b a {
+    display: block;
+    min-height: 24px;
+    line-height: 24px;
+  }
   .foot .ct .link {
     color: var(--glow-text);
   }
@@ -2945,6 +2911,11 @@
   }
 }
 
+@keyframes grow {
+  from {
+    transform: scaleY(0.15);
+  }
+}
 @keyframes scroll {
   to {
     transform: translateX(-50%);
@@ -3008,9 +2979,6 @@
   }
   .foot > div:first-child {
     grid-column: 1/-1;
-  }
-  .team {
-    grid-template-columns: 1fr 1fr;
   }
   .final .cta-row {
     justify-content: flex-start;

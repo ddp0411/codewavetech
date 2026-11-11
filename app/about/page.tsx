@@ -1,11 +1,10 @@
-import Image from "next/image";
 import { PageHero } from "@/components/ui/PageHero";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { PathIcon } from "@/components/ui/Icons";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { CTABand } from "@/components/layout/CTABand";
-import { team } from "@/content/site";
+import { teamAreas } from "@/content/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -113,22 +112,18 @@ export default function AboutPage() {
         <div className="wrap">
           <SectionHeader
             id="team-title"
-            eyebrow="Leadership"
-            title="Meet the team"
-            lead="Photos, roles and short bios go here once you share them."
+            eyebrow="Our team"
+            title="One team, from first call to long after launch"
+            lead="Every project is handled by people who work together across design, development, testing and support."
           />
-          <ul className="team">
-            {team.map((m, i) => (
-              <li key={`${m.name}-${i}`}>
-                <div className="ph">
-                  {m.photo ? (
-                    <Image src={m.photo} alt={m.name} width={400} height={400} />
-                  ) : (
-                    <span>Photo</span>
-                  )}
-                </div>
-                <b>{m.name}</b>
-                <span>{m.role}</span>
+          <ul className="values">
+            {teamAreas.map((a) => (
+              <li key={a.title}>
+                <i>
+                  <PathIcon paths={a.icon} size={18} />
+                </i>
+                <h3>{a.title}</h3>
+                <p>{a.text}</p>
               </li>
             ))}
           </ul>

@@ -65,7 +65,7 @@ All copy is typed data in `content/`. Edit the file and redeploy.
 
 | File                      | What it holds                                                                        |
 | ------------------------- | ------------------------------------------------------------------------------------ |
-| `content/site.ts`         | Email, phone, hours, tagline, badges, "Now booking" pill, tech marquee, **team**     |
+| `content/site.ts`         | Email, phone, hours, tagline, badges, "Now booking" pill, tech marquee, team areas   |
 | `content/services.ts`     | The 14 service areas (12 detail pages + Government + Industries cards), slugs, icons |
 | `content/industries.ts`   | 9 industries, examples and linked services                                           |
 | `content/government.ts`   | Government groups, compliance chips, stats                                           |
@@ -76,8 +76,6 @@ All copy is typed data in `content/`. Edit the file and redeploy.
 
 Adding a service: append to `detailServices` with a unique `key` and `slug`. The page, sitemap, mega menu, footer and form chip update automatically. Icons are 24×24 stroke SVG path markup.
 
-Team photos: put images in `public/team/` and set `photo: "/team/name.jpg"` (and remove `placeholder`) in `content/site.ts`.
-
 ## Logo and icons
 
 The source logo files live in `pics/`. `python scripts/brand_assets.py` (needs Pillow) regenerates everything from them:
@@ -86,18 +84,17 @@ The source logo files live in `pics/`. `python scripts/brand_assets.py` (needs P
 | ---------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | `app/favicon.ico`, `app/icon.png`                                | Browser tab icon                                                       |
 | `app/apple-icon.png`                                             | iOS home-screen icon                                                   |
-| `public/brand/logo-horizontal.png` / `logo-horizontal-light.png` | Nav logo (switches with the theme) / footer logo                       |
+| `public/brand/logo-nav.webp` / `logo-nav-light.webp`             | Nav logo (switches with the theme) / footer logo                       |
+| `public/brand/logo-horizontal.png` / `logo-horizontal-light.png` | Full-size versions of the same logo                                    |
 | `public/brand/og-image.png`                                      | Open Graph + Twitter share image on every page                         |
 | `public/brand/logo-square.png`                                   | Organization JSON-LD logo, web manifest                                |
 | `public/brand/cw-mark.png`, `logo-full.png`                      | Square mark and full lockup (incl. "Digital Solutions") for other uses |
 
 ## Placeholders to replace before launch
 
-- [ ] **Phone / WhatsApp number**: `content/site.ts` → `phone` (`+91 XXXXX XXXXX`), plus `phoneHref` in E.164 (e.g. `+919876543210`) to make it a tap-to-call link
 - [ ] **Office address**: `content/site.ts` → `address` (also feeds Organization JSON-LD)
 - [ ] **Social profiles**: `content/site.ts` → `sameAs`
 - [ ] **Testimonials**: `content/testimonials.ts`. All 4 are samples. Replace each quote and set `sample: false` to remove the dashed "Sample" tag.
-- [ ] **Team**: `content/site.ts` → `team` (names, roles, photos)
 - [ ] **"Now booking" pill**: `content/site.ts` → `bookingBadge` (currently "New projects for Q1 2027")
 - [ ] **Privacy policy / Terms**: `app/privacy/page.tsx`, `app/terms/page.tsx` contain placeholder summaries; replace with reviewed legal text
 - [ ] **Open Graph image**: none yet. Add `app/opengraph-image.png` (1200×630) and Next.js will wire it up.
@@ -113,29 +110,32 @@ The source logo files live in `pics/`. `python scripts/brand_assets.py` (needs P
 
 - **Styling:** design tokens are CSS variables in `app/globals.css` (light on `:root`, dark under `[data-theme="dark"]` and the `prefers-color-scheme` block), mapped into Tailwind in `tailwind.config.ts`. Component classes are ported 1:1 from the reference so the rendering matches it pixel for pixel. Tailwind's preflight is disabled because the reference relies on browser defaults.
 - **Theme:** light by default. The toggle in the top-right of the nav switches to dark and remembers the choice (`localStorage`, key `cwt-theme`). A tiny inline script applies it before first paint.
-- **Supporting tokens** beyond the core table: `--on-accent` (text on accent; dark text in dark mode for contrast), `--glow-text` (glow used as text on dark surfaces; brighter in dark mode for contrast), `--brand`, `--whatsapp`, `--shadow-rgb` and the consultation-band colours.
-- **Motion:** page fade, marquee and typing dots are CSS. The dashboard bar chart uses Framer Motion (`LazyMotion` + `m`). The CTA waves are a canvas that pauses offscreen and when the tab is hidden. `prefers-reduced-motion` disables all of it.
+- **Palette:** navy (`#0A1B3C`) and gold (`#E4A82A`) sampled from the logo, replacing the teal in the reference. Navy carries text and links because gold fails contrast on light backgrounds; gold is used on dark bands, the CTA band button and the active-nav underline. Supporting tokens: `--gold`, `--gold-2`, `--on-gold`, `--accent-warm` (deeper gold for large text), `--deep-glow`, `--glow-text`, `--on-accent`, `--whatsapp`, `--shadow-rgb` and the `--consult-*` band colours.
+- **Motion:** page fade, chart bars, marquee and typing dots are pure CSS. The CTA waves are a canvas that pauses offscreen and when the tab is hidden. `prefers-reduced-motion` disables all of it.
 - **SEO:** per-page `metadata` (title, description, canonical, Open Graph, Twitter), `sitemap.ts`, `robots.ts`. JSON-LD: Organization (every page), BreadcrumbList (inner pages), Service (service pages), FAQPage (Home, How we work, Contact).
 - **Static output:** every page is statically generated; service pages via `generateStaticParams`. Only `/api/contact` is dynamic.
 
 ## Deliberate differences from the reference
 
-| Area                                  | Reference                       | This build                         | Why                                                     |
-| ------------------------------------- | ------------------------------- | ---------------------------------- | ------------------------------------------------------- |
-| Preview toggle / Build plan           | present                         | removed                            | per brief                                               |
-| Theme                                 | follows system                  | light default + toggle (top right) | owner request                                           |
-| Footer bottom padding                 | 110px (room for preview toggle) | 48px                               | toggle removed                                          |
-| Section header < 680px                | squeezed into 2 narrow columns  | stacks                             | readability (2 columns kept on tablet, as in reference) |
-| About "promises" grid                 | forced 4 columns at every width | 4 → 2 (≤1100px) → 1 (≤680px)       | brief §9 responsive rules                               |
-| Dark mode: text on accent             | white (≈1.9:1)                  | dark ink                           | WCAG AA                                                 |
-| Dark mode: glow-coloured text on dark | ≈2.4:1                          | `--glow-text` (#7FDCC8)            | WCAG AA                                                 |
-| "The usual problem" labels            | 4.27:1                          | 10% ink mixed in (≈4.9:1)          | WCAG AA, visually identical                             |
-| Office hours                          | no copy button                  | copy button                        | brief §6                                                |
-| Industry tiles / footer industries    | link to `/industries`           | link to `/industries#<id>`         | deep links to the card                                  |
+| Area                                  | Reference                                    | This build                                                     | Why                                                     |
+| ------------------------------------- | -------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------- |
+| Preview toggle / Build plan           | present                                      | removed                                                        | per brief                                               |
+| Theme                                 | follows system                               | light default + toggle (top right)                             | owner request                                           |
+| Footer bottom padding                 | 110px (room for preview toggle)              | 48px                                                           | toggle removed                                          |
+| Section header < 680px                | squeezed into 2 narrow columns               | stacks                                                         | readability (2 columns kept on tablet, as in reference) |
+| About "promises" grid                 | forced 4 columns at every width              | 4 → 2 (≤1100px) → 1 (≤680px)                                   | brief §9 responsive rules                               |
+| Dark mode: text on accent             | white (≈1.9:1)                               | dark ink                                                       | WCAG AA                                                 |
+| Dark mode: glow-coloured text on dark | ≈2.4:1                                       | `--glow-text` (brand gold)                                     | WCAG AA                                                 |
+| "The usual problem" labels            | 4.27:1                                       | 10% ink mixed in (≈4.9:1)                                      | WCAG AA, visually identical                             |
+| Consent line on the form              | "will not share my details with anyone else" | "will only use my details to respond and will never sell them" | accurate now that leads pass through service providers  |
+| Colour palette                        | teal                                         | navy and gold from the logo                                    | owner request                                           |
+| About team section                    | names and photos                             | generic team areas, no individuals                             | owner request                                           |
+| Office hours                          | no copy button                               | copy button                                                    | brief §6                                                |
+| Industry tiles / footer industries    | link to `/industries`                        | link to `/industries#<id>`                                     | deep links to the card                                  |
 
 ## QA checklist (verified)
 
-Compared against `reference/codewavetech-reference.html` with headless Chrome full-page screenshots and pixel diffs, light and dark, at each width. Heights match the reference exactly (−62px footer padding) at 768, 1024 and 1440px on every page; differences at 375px are the stacked section headers listed above.
+Compared against `reference/codewavetech-reference.html` with headless Chrome full-page screenshots and pixel diffs, light and dark, at each width. Heights match the reference exactly (−62px footer padding) at 768, 1024 and 1440px on every page; differences at 375px are the stacked section headers listed above. Layout was compared before the navy and gold palette replaced the teal, so colours intentionally differ from the reference now.
 
 | Page                                                                            | 1440 | 1024 | 768 | 375 | Light | Dark |
 | ------------------------------------------------------------------------------- | ---- | ---- | --- | --- | ----- | ---- |
@@ -154,6 +154,6 @@ Also verified:
 
 - No horizontal scroll at 360, 375, 768, 1024 and 1440px on any page, either theme.
 - axe-core (WCAG 2 A/AA + best practice): 0 violations on all pages, both themes, desktop and mobile.
-- Lighthouse mobile: Accessibility 100, Best Practices 100, SEO 100 on all pages tested; Performance 95–99.
+- Lighthouse mobile: Accessibility 100, Best Practices 100, SEO 100 on all pages tested; Performance 94–97 (measured locally; Home scored 94–95).
 - Keyboard: skip link, mega menu (Enter/Esc, focus return, closes on focus-out/outside click/navigation), mobile menu, stepper tabs (arrow keys, Home/End), testimonial track (arrow keys), FAQ `<details>`.
 - Contact form: per-step validation with inline errors and focus on the first invalid field, `?service=` preselect, 400ms draft autosave/restore, phone auto-format, success summary with reference, server error keeps the data. API: honeypot 400, validation 422, rate limit 429.

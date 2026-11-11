@@ -9,6 +9,7 @@ Outputs
   public/brand/logo-square.png                        mark on white, for JSON-LD / manifest
   public/brand/logo-horizontal.png                    mark + navy wordmark (light surfaces)
   public/brand/logo-horizontal-light.png              mark + light wordmark (dark surfaces)
+  public/brand/logo-nav.webp, logo-nav-light.webp     small files served in the nav/footer
   public/brand/logo-full.png                          full lockup incl. "DIGITAL SOLUTIONS"
   public/brand/og-image.png                           1200x630 social share image
 """
@@ -90,10 +91,14 @@ def main():
         BRAND / "logo-square.png", optimize=True
     )
 
-    horizontal(mark, wordmark).save(BRAND / "logo-horizontal.png", optimize=True)
-    horizontal(mark, recolor_dark_text(wordmark, LIGHT_TEXT)).save(
-        BRAND / "logo-horizontal-light.png", optimize=True
-    )
+    logo = horizontal(mark, wordmark)
+    logo_light = horizontal(mark, recolor_dark_text(wordmark, LIGHT_TEXT))
+    logo.save(BRAND / "logo-horizontal.png", optimize=True)
+    logo_light.save(BRAND / "logo-horizontal-light.png", optimize=True)
+    # Small files actually served in the nav and footer (2x of the 36px display height)
+    nav_size = (round(72 * logo.width / logo.height), 72)
+    logo.resize(nav_size, Image.LANCZOS).save(BRAND / "logo-nav.webp", quality=88, method=6)
+    logo_light.resize(nav_size, Image.LANCZOS).save(BRAND / "logo-nav-light.webp", quality=88, method=6)
 
     full = trim(lockup.crop(FULL_BOX))
     full_mark = mark.resize((round(mark.width * full.height / mark.height), full.height), Image.LANCZOS)

@@ -72,7 +72,11 @@ export function Footer() {
                 Phone / WhatsApp
                 <br />
                 <b>
-                  {site.phoneHref ? <a href={`tel:${site.phoneHref}`}>{site.phone}</a> : site.phone}
+                  {site.phones.map((p) => (
+                    <span key={p.href}>
+                      <a href={`tel:${p.href}`}>{p.display}</a>
+                    </span>
+                  ))}
                 </b>
               </span>
               <span>

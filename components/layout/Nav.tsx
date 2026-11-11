@@ -87,7 +87,7 @@ export function Nav() {
       <div className="wrap">
         <nav className="nav" aria-label="Main">
           <Link className="logo" href="/">
-            <BrandLogo priority />
+            <BrandLogo />
           </Link>
           <ul className="links">
             <li ref={megaItem}>

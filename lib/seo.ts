@@ -77,9 +77,10 @@ export function organizationJsonLd() {
           },
         }
       : {}),
-    contactPoint: {
+    contactPoint: site.phones.map((p) => ({
       "@type": "ContactPoint",
       contactType: "sales",
+      telephone: p.href,
       email: site.email,
       areaServed: "IN",
       availableLanguage: ["English", "Hindi"],
@@ -89,7 +90,7 @@ export function organizationJsonLd() {
         opens: "10:00",
         closes: "19:00",
       },
-    },
+    })),
   };
 }
 

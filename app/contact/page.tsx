@@ -68,13 +68,19 @@ export default function ContactPage() {
                   </div>
                   <CopyButton text={site.email} label="email address" />
                 </div>
-                <div>
-                  <div>
-                    <small>Phone / WhatsApp</small>
-                    <b>{site.phone}</b>
+                {site.phones.map((p) => (
+                  <div key={p.href}>
+                    <div>
+                      <small>Phone / WhatsApp</small>
+                      <b>
+                        <a href={`tel:${p.href}`} style={{ textDecoration: "none" }}>
+                          {p.display}
+                        </a>
+                      </b>
+                    </div>
+                    <CopyButton text={p.display} label={`phone number ${p.display}`} />
                   </div>
-                  <CopyButton text={site.phone} label="phone number" />
-                </div>
+                ))}
                 <div>
                   <div>
                     <small>Office hours</small>
