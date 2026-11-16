@@ -94,6 +94,19 @@ export function organizationJsonLd() {
   };
 }
 
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${site.url}/#website`,
+    name: site.name,
+    url: site.url,
+    description: site.description,
+    inLanguage: "en-IN",
+    publisher: { "@id": `${site.url}/#organization` },
+  };
+}
+
 export function breadcrumbJsonLd(crumbs: Crumb[], currentPath: string) {
   return {
     "@context": "https://schema.org",

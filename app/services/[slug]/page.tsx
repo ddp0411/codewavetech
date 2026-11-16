@@ -8,9 +8,11 @@ import { CheckIcon } from "@/components/ui/Icons";
 import { Tag } from "@/components/ui/Tag";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { IndustryTiles } from "@/components/shared/IndustryTile";
+import { FAQ } from "@/components/shared/FAQ";
 import { CTABand } from "@/components/layout/CTABand";
 import { detailServices, getServiceBySlug } from "@/content/services";
 import { industries } from "@/content/industries";
+import { serviceFaq } from "@/content/faq";
 import { pageMetadata, serviceJsonLd } from "@/lib/seo";
 
 type Params = { slug: string };
@@ -112,6 +114,12 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
             </div>
           </aside>
         </div>
+        <section className="svc-faq" aria-labelledby="svc-faq-title">
+          <h2 className="sub-h" id="svc-faq-title">
+            {s.title}: common questions
+          </h2>
+          <FAQ items={serviceFaq(s)} />
+        </section>
         <nav className="pager" aria-label="More services">
           <Link href={`/services/${prev.slug}`} rel="prev">
             <small>← Previous</small>

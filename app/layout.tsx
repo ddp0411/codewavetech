@@ -5,7 +5,7 @@ import { TopBar } from "@/components/layout/TopBar";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { JsonLd } from "@/components/ui/JsonLd";
-import { ogImage, organizationJsonLd } from "@/lib/seo";
+import { ogImage, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { site } from "@/content/site";
 import { themeInitScript } from "@/components/layout/ThemeToggle";
 
@@ -61,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a className="skip-link" href="#main">
           Skip to content
         </a>
-        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         <TopBar />
         <Nav />
         <main id="main" tabIndex={-1}>
